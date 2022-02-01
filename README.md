@@ -1,2 +1,2 @@
 # gle-manual
-GLE Manual
+GLE Manual - MAnual for GLE program.  Written in LaTeX.
