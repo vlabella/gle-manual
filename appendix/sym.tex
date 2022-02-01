@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                      %
+% GLE - Graphics Layout Engine <http://www.gle-graphics.org/>          %
+%                                                                      %
+% Modified BSD License                                                 %
+%                                                                      %
+% Copyright (C) 2009 GLE.                                              %
+%                                                                      %
+% Redistribution and use in source and binary forms, with or without   %
+% modification, are permitted provided that the following conditions   %
+% are met:                                                             %
+%                                                                      %
+%    1. Redistributions of source code must retain the above copyright %
+% notice, this list of conditions and the following disclaimer.        %
+%                                                                      %
+%    2. Redistributions in binary form must reproduce the above        %
+% copyright notice, this list of conditions and the following          %
+% disclaimer in the documentation and/or other materials provided with %
+% the distribution.                                                    %
+%                                                                      %
+%    3. The name of the author may not be used to endorse or promote   %
+% products derived from this software without specific prior written   %
+% permission.                                                          %
+%                                                                      %
+% THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR   %
+% IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED       %
+% WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   %
+% ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY       %
+% DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL   %
+% DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE    %
+% GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS        %
+% INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER %
+% IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR      %
+% OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN  %
+% IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                        %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{\LaTeX\ Macros}
+\label{ltxsym:sec}
+\index{\LaTeX!macros}
+
+\index{\LaTeX} There are several \LaTeX\ like commands 
+which can be used within text, they are:
+
+\vspace{0.5cm}
+\begin{tabular}{ll}
+\verb+\` \' \v \u \= \^+    & Implemented TeX accents \\
+\verb+\. \H \~ \''+         & Implemented TeX accents \\
+\verb+^{}+                  & Superscript \\
+\verb+_{}+                  & Subscript \\
+\verb+\\+                   & Forced newline \\
+\verb+\_+                   & Underscore character \\
+\verb+\,+                   & 0.5em (em = width of the letter `m') \\
+\verb+\:+                   & 1em space \\
+\verb+\;+                   & 2em space \\
+\verb+\!+                   & -0.5em space \\
+\verb+\tex{expression}+     & Any LaTeX expression \\
+\verb+\char{22}+            & Any character in current font \\
+\verb+\chardef{a}{hello}+   & Define a character as a macro \\
+\verb+\def\v{hello}+        & Defines a macro \\
+\verb+\movexy{2}{3}+        & Moves the current text point \\
+\verb+\glass+               & Makes move/space work on beginning of line \\
+\verb+\it+                  & Switches to italic font \\ 
+\verb+\kern{-0.1em}+        & Change inter character distance \\
+\verb+\ldots+               & $\ldots$ \\
+\verb+\lineskip{.1}+        & Sets the default distance between lines of text \\
+\verb+\linegap{-1}+         & Sets the minimum required gap between lines \\
+\verb+\lower{0.1em}{hello}+ & Lower the given text \\
+\verb+\parskip{0.1em}+      & Set distance between paragraphs \\
+\verb+\raise{0.1em}{hello}+ & Raise the given text \\
+\verb+\rm+                  & Switches to roman font \\
+\verb+\bf+                  & Switches to bold font \\
+\verb+\rule{2}{4}+          & Draws a filled in box, 2cm by 4cm \\
+\verb+\setfont{rmb}+        & Sets the current text font \\
+\verb+\sethei{.3}+          & Sets the font height (in cm) \\
+\verb+\setstretch{2}+       & Scales the quantity of glue between words \\
+\verb+\tt+                  & Switches to typewriter (fixed space) font \\
+\end{tabular}
+
+\newpage
+\section{\LaTeX\ Symbols}
+\index{symbols}
+
+\mbox{\input{appendix/fig/symbols.inc}}
