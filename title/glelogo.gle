@@ -93,12 +93,12 @@ begin clip			! Save default clipping region
 end clip
 
 !
-! version number
+! version number -- do not display on logo for manual since version number is on title page
 !
-amove 9.4 1.8
-gsave
-set hei 1.0
-set just bl
-set color gray40
-text v4.2
-grestore
+!amove 9.4 1.8
+!gsave
+!set hei 1.0
+!set just bl
+!set color gray40
+!text v4.2
+!grestore
