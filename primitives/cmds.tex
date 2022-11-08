@@ -58,7 +58,7 @@ can be set with various GLE commands.
 {\sf abound {\it x y}} \\
 {\sf aline {\it x y} [arrow start] [arrow end] [arrow both] [curve {\it $\alpha1$} {\it $\alpha2$} {\it d1} {\it d2}]} \\
 {\sf amove {\it x y}}  \\
-{\sf arc {\it radius a1 a2 [arrow end] [arrow start] [arrow both]}} \\
+{\sf arc {\it radius a1 a2} [arrow end] [arrow start] [arrow both]} \\
 {\sf arcto {\it x1 y1 x2 y2 rad}}  \\
 {\sf begin box [fill {\it pattern}] [add {\it gap}] [nobox] [name {\it xyz}] [round {\it val}]}  \\
 {\sf begin clip }  \\
@@ -82,18 +82,21 @@ can be set with various GLE commands.
 {\sf colormap {\it fct} {\it xmin} {\it xmax} {\it ymin} {\it ymax} {\it pixels-x} {\it pixels-y} {\it width} {\it height} [color] [palette {\it pal}]} \\
 {\sf curve {\it ix iy }[{\it x1 y1 x y x y ... xn yn}]{\it ex ey }}  \\
 {\sf define marker {\it markername  subroutine-name}} \\
-{\sf draw {\it name.point [{\it arg1} ... {\it argn}] [name {\it name}]}} \\
-{\sf ellipse dx dy [options]} \\
-{\sf elliptical\_arc dx dy theta1 theta2 [options]} \\
-{\sf for {\it var} = {\it exp1} to {\it exp2} [step {\it exp3}] {\it command [...]} next {\it var}}  \\
+{\sf defmarker {\it markername  fontname scale dx dy}} \\
+{\sf draw {\it name.point} [{\it arg1} ... {\it argn}] [name {\it name}]} \\
+{\sf ellipse {\it dx dy} [options]} \\
+{\sf elliptical\_arc {\it dx dy theta1 theta2} [options]} \\
+{\sf elliptical\_narc {\it dx dy theta1 theta2} [options]} \\
+{\sf for {\it var} = {\it exp1} to {\it exp2} [step {\it exp3}] {\it command} [...] next {\it var}}  \\
 {\sf grestore}  \\
 {\sf gsave}  \\
-{\sf if {\it exp} then {\it command [...]} else {\it command [...]} end if}  \\
+{\sf if {\it exp} then {\it command} [...] else {\it command} [...] end if}  \\
 {\sf include {\it filename}}  \\
 {\sf join {\it object1.just sep object2.just} [curve {\it $\alpha1$} {\it $\alpha2$} {\it d1} {\it d2}]}   \\
 {\sf local {\it var}$_1$, $\ldots$, {\it var}$_n$} \\
 {\sf margins {\it top} {\it bottom} {\it left} {\it right}} \\
 {\sf marker {\it marker-name} [{\it scale-factor}]}  \\
+{\sf narc {\it radius a1 a2} [arrow end] [arrow start] [arrow both]} \\
 {\sf orientation {\it o}} \\
 {\sf papersize {\it size}} \\
 {\sf postscript {\it filename.eps  width-exp height-exp}}   \\
@@ -108,29 +111,29 @@ can be set with various GLE commands.
 {\sf save {\it objectname}}   \\
 {\sf set alabeldist {\it d}}  \\
 {\sf set alabelscale {\it s}}  \\
-{\sf set arrowangle {\sf angle}}  \\
-{\sf set arrowsize {\sf size}}  \\
-{\sf set arrowstyle {\sf simple | filled | empty}} \\
+{\sf set arrowangle {\it angle}}  \\
+{\sf set arrowsize {\it size}}  \\
+{\sf set arrowstyle simple $|$ filled $|$ empty} \\
 {\sf set atitledist {\it s}}  \\
 {\sf set atitlescale {\it s}}  \\
-{\sf set background {it c}} \\
-{\sf set cap {\sf butt | round | square}}  \\
+{\sf set background {\it c}} \\
+{\sf set cap butt $|$ round $|$ square} \\
 {\sf set color {\it col}}  \\
 {\sf set dashlen {\it dashlen-exp}}  \\
-{\sf set fill {\it fill color/pattern}}  \\
+{\sf set fill {\it fill-color/pattern}}  \\
 {\sf set font {\it font-name}}  \\
 {\sf set fontlwidth {\it line-width}}  \\
 {\sf set hei {\it character-size}}  \\
-{\sf set join {\sf mitre | round | bevel }}  \\
+{\sf set join {\sf mitre $|$ round $|$ bevel }}  \\
 {\sf set just left $|$ center $|$ right  $|$ tl $|$ etc...}  \\
 {\sf set lstyle {\it line-style}}  \\
 {\sf set lwidth {\it line-width}}  \\
-{\sf set pattern {\it fill pattern}}  \\
-{\sf set texscale {\it scale} $|$ {\it fixed} $|$ {\it none}} \\
+{\sf set pattern {\it fill-pattern}}  \\
+{\sf set texscale scale $|$ fixed $|$ none} \\
 {\sf set titlescale {\it s}}  \\
 {\sf set ticksscale {\it s}}  \\
 {\sf size {\it w} {\it h}}  \\
-{\sf sub {\it sub-name parameter1 parameter2 etc}}  \\
+{\sf sub {\it sub-name parameter1 parameter2} etc...}  \\
 {\sf tex {\it string} [name {\it xxx}] [add {\it val}]}  \\
 {\sf text {\it unquoted-text-string}}  \\
 {\sf write {\it string\$} $\ldots$}
@@ -161,7 +164,7 @@ If the curve option is given, then a Bezier curve\index{Bezier curve}\index{curv
 \index{amove} Changes the current point to the absolute coordinates
 {\it (x,y)}.
 
-\item[{\sf arc {\it radius a1 a2 [arrow end] [arrow start] [arrow both]}}]
+\item[{\sf arc {\it radius a1 a2} [arrow end] [arrow start] [arrow both]}]
 \index{arc}\index{narc} Draws an arc of a circle in the anti-clockwise direction, centered
 at the current point, of radius {\it radius},
 starting at angle {\it a1} and finishing at angle {\it a2}. Angles
@@ -211,7 +214,7 @@ rline -1 1
 \mbox{\includegraphics{primitives/fig/gc_arcto}}
 \end{minipage}
 
-\item[{\sf begin {\it block\_name} ... {\it end block\_name}}]
+\item[{\sf begin {\it block\_name} ... end {\it block\_name}}]
 There are several block structured commands in GLE.  Each
 {\sf begin} must have a matching {\sf end}.  Blocks which change the
 current graphics state (e.g. scale, rotate, clip etc) will restore
@@ -565,7 +568,7 @@ one plotted.
 d3 marker myname mdata d4
 \end{Verbatim}
 
-\item[{\sf define {\it markername  fontname scale dx dy}}]
+\item[{\sf defmarker {\it markername  fontname scale dx dy}}]
 This command defines a new marker, from any font, it is
 automatically centered but can be adjusted using dx,dy. e.g.
 
@@ -573,7 +576,7 @@ automatically centered but can be adjusted using dx,dy. e.g.
 defmarker hand pszd 43 1 0 0
 \end{Verbatim}
 
-\item[{\sf draw {\it name.point [{\it arg1} ... {\it argn}] [name {\it name}]}}]
+\item[{\sf draw {\it name.point} [{\it arg1} ... {\it argn}] [name {\it name}]}]
 \label{cmd:draw}
 
 Draws a named object block that has been previously defined using a ``begin/end object'' (p.~\pageref{cmd:beginobject}) construct. The object is drawn such that the point indicated by the first argument of the draw command appears at the current position. The point can be any (hierarchically) named point on the object and may include the justify options defined for the join command (p.~\pageref{cmd:join}).
@@ -584,19 +587,19 @@ The ``draw'' command names the object using the same name as the name of the obj
 
 See Sec.~\ref{sec:objblocks} for a detailed explanation of this command with examples.
 
-\item[{\sf ellipse} {\it dx dy [options]}]
+\item[{\sf ellipse {\it dx dy} [options]}]
 \index{ellipse}
 
 This command draws an ellipse with the diameters {\it dx} and {\it dy} in the $x$ and $y$ directions, respectively.  The {\it options} are the same as the {\sf circle} command.
 
-\item[{\sf elliptical\_arc} {\it dx dy theta1 theta2 [options]}]
+\item[{\sf elliptical\_arc {\it dx dy theta1 theta2} [options]}]
 \index{elliptical\_arc}\index{elliptical\_narc}
 
 This command is similar to the {\sf arc} command except that it draws an elliptical arc in the clockwise direction with the diameters  {\it dx} and  {\it dy} in the $x$ and $y$ directions, respectively. {\it theta1} and {\it theta2} are the start and stop angle, respectively.  The {\it options} are the same as for the {\sf arc} command.
 
 The command {\sf elliptical\_narc} is identical but draws the arc in the clockwise direction.  This is important when constructing a path.
 
-\item[{\sf for {\it var} = {\it exp1} to {\it exp2} [step {\it exp3}] {\it command [...]} next {\it var}}  ]
+\item[{\sf for {\it var} = {\it exp1} to {\it exp2} [step {\it exp3}] {\it command} [...] next {\it var}}  ]
 \index{for} \index{next} \index{step}
 The {\sf for ... next} structure lets you repeat a block of statements
 a number of times.
@@ -635,7 +638,7 @@ must be paired with a previous {\sf gsave} command.
 \index{gsave} Saves the current graphics transformation matrix and the current point
 and the current colour, font etc.
 
-\item[{\sf if {\it expression} then {\it command [...]} else {\it command [...]} end if}]
+\item[{\sf if {\it expression} then {\it command} [...] else {\it command} [...] end if}]
 \index{if}\index{else}\index{then}\index{end if}
 If {\it expression} evaluates to true, then execution continues with the
 statements up to the corresponding {\sf else}, otherwise the statements
@@ -859,17 +862,17 @@ The spacing between the graph axis labels and the axis is set to {\it d}.
 
 The graph axis label font size is set to `\texttt{alabelscale}' times `\texttt{hei}'.
 
-\item[{\sf set arrowangle {\sf angle}}]
+\item[{\sf set arrowangle {\it angle}}]
 \index{arrowangle}
 
 Sets the opening angle of the arrow tips. (Actually, half of the opening angle.)
 
-\item[{\sf set arrowsize {\sf size}}]
+\item[{\sf set arrowsize {\it size}}]
 \index{arrowsize}
 
 Sets the length of the arrow tips in centimeter.
 
-\item[{\sf set arrowstyle {\sf simple | filled | empty}}]
+\item[{\sf set arrowstyle simple $|$ filled $|$ empty}]
 \index{arrowstyle}
 
 Sets the style of the arrow tips. There are three pre-defined styles: simple, filled, and empty (See Fig.~\ref{arrsty:fig}).
@@ -900,11 +903,11 @@ The spacing between the graph axis title and the axis labels is set to {\it d}.
 
 The graph axis title font size is set to `\texttt{atitlescale}' times `\texttt{hei}'.
 
-\item[{\sf set background {it c}}]
+\item[{\sf set background {\it c}}]
 
 Set the background color for a pattern fill to $c$. (See `set fill'.) Note that ``set background'' must come after ``set fill'' because ``set fill'' resets the background color to the specified color.
 
-\item[{\sf set cap {\sf butt | round | square}}]
+\item[{\sf set cap butt $|$ round $|$ square}]
 \index{round (cap)}
 \index{cap}
 Defines what happens at the end of a wide line.
@@ -956,7 +959,7 @@ This may be needed when scaling a drawing by a large factor.
 \caption{\label{filpat:fig}Patterns for painting shapes.}
 \end{figure}
 
-\item[{\sf set fill {\it fill color/pattern}}]
+\item[{\sf set fill {\it fill-color/pattern}}]
 \index{fill}
 Sets the color or pattern for filling shapes. This command works in combination with shapes such as circles, ellipses, and boxes. If the argument is a color, then shapes are filled with the given color (see ``set color''). If it is a pattern, then the shapes are painted with the given pattern in black ink. Fig.~\ref{filpat:fig} lists a number of pre-defined patterns. To paint a shape in a color different from black, first set the color, then the pattern. That is,
 
@@ -1017,7 +1020,7 @@ Sets the height of text.  For historical reasons, concerning lead type and print
 
 The default value of ``hei'' is 0.3633 (to mimic the default height of \LaTeX{} expressions).
 
-\item[{\sf set join {\sf mitre | round | bevel }}]
+\item[{\sf set join mitre $|$ round $|$ bevel }]
 \index{round (join)}
 \index{join}
 \index{join (set join)}
@@ -1088,11 +1091,11 @@ Sets the width of lines to {\it line-width} cm.  A value of zero will result in
 the device default of about 0.02 cm, so a lwidth of .0001 gives
 a thinner line than an lwidth of 0.
 
-\item[{\sf set pattern {\it fill pattern}}]
+\item[{\sf set pattern {\it fill-pattern}}]
 \index{pattern}
 Specifies the filling pattern. A number of pre-defined patterns is listed in Fig.~\ref{filpat:fig}. See the description of ``set fill'' for more information. Note that ``set pattern'' must come after ``set fill'' because ``set fill'' resets the pattern to solid.
 
-\item[{\sf set texscale {\it scale} $|$ {\it fixed} $|$ {\it none}}]
+\item[{\sf set texscale scale $|$ fixed $|$ none}]
 \index{texscale}
 This setting controls the scaling of \LaTeX{} expressions (Sec.~\ref{latexexp:sec}): `\texttt{scale}' scales them to the value of `\texttt{hei}', `\texttt{fixed}' scales them to the closest \LaTeX{} default size to `\texttt{hei}', and `\texttt{none}' does not scale them. With `\texttt{none}', the font size in your graphics will be exactly the same as in your main document.
 
@@ -1114,7 +1117,7 @@ This command usually appears at the top of a GLE script. That is, only commands 
 
 It is possible to omit the size command. In that case, the size of the output is determined by the `pagesize' command (see Fig.~\ref{fullpage:fig}).
 
-\item[{\sf sub {\it sub-name parameter1 parameter2 etc.}}]
+\item[{\sf sub {\it sub-name parameter1 parameter2} etc.}]
 \index{sub} Defines a subroutine. The end of the subroutine
 is denoted with {\sf end sub}.  Subroutines must
 be defined before they are used.
