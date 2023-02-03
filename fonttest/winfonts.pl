@@ -46,11 +46,9 @@ if(not defined $gle){
 	print "Must pass full path to gle executable as first argument on command line.";
 	exit();
 }
-
-#my $gle = "gle";
-#my $gle = "../../build-x64/stage/bin/gle";
-#if ($ENV{"RUNBUILD"} == 1) {
-#} 
+# add quotes around $gle in case there is a space in the path
+# because quotes seem to get dropped even if passed in on the command line
+$gle = '"'.$gle.'"';
 
 my $clean = 0;
 if(defined $extra){
@@ -75,9 +73,10 @@ while (my $line = <IN>) {
 				system("$gle -d pdf -o $name.pdf font-table.gle $name");
 			}
 		}else{
-			system("erase /QE $name.gle $name.eps $name.pdf");
+			unlink("$name.gle");
+			unlink("$name.eps");
+			unlink("$name.pdf");
 		}
-
 	}
 }
 close(IN);
