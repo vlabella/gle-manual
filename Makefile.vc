@@ -148,9 +148,9 @@ HAVE_EXTRA_FONTS=1
 # location where manual PDF is installed
 INSTALL_FOLDER	=$(GLE_TOP)\doc
 
-all: $(GLE_FIGURES) defstex fonts pdf 
+all: $(GLE_FIGURES) defstex fonts pdf
 
-install: 
+install:
 	-mkdir $(INSTALL_FOLDER)
 	copy gle-manual.pdf $(INSTALL_FOLDER)
 
