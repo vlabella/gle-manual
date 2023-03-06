@@ -60,7 +60,7 @@ commands are not explicitly mentioned in the following descriptions.
 \section{Graph Commands (a summary)}
 {\sf center} \\
 {\sf colormap {\it fct} {\it pixels-x} {\it pixels-y} [{\it color}] [{\it invert}] [{\it zmin} $z_1$]  [{\it zmax} $z_2$] [{\it palette} {\it pal}]} \\
-{\sf data {\it filename {\sf [}d1 d2 d3 ...{\sf ] [}d1=c1,c3 ...{\sf ]} } [ignore {\it n}] [comment {\it char}] } \\
+{\sf data {\it filename {\sf [}d1 d2 d3 ...{\sf ] [}d1=c1,c3 ...{\sf ]} } [ignore {\it n}] [comment {\it char}] [numrows {\it n}] } \\
 {\sf discontinuity threshold {\it t}} \\
 {\sf dn [deresolve m] [average] line} \\
 {\sf dn err {\it d5} errwidth {\it width-exp} errup {\it nn\%} errdown {\it d4}} \\
@@ -143,7 +143,7 @@ Centers the graph (including the title and axis labels) in the graph box. (The c
 
 The colormap command is discussed in Section~\ref{colormap}.
 
-\item[{\sf data {\it filename {\sf [}d1 d2 d3 ...{\sf ] [}d1=c1,c3 ...{\sf ]}} [ignore {\it n}] [comment {\it char}]}]
+\item[{\sf data {\it filename {\sf [}d1 d2 d3 ...{\sf ] [}d1=c1,c3 ...{\sf ]}} [ignore {\it n}] [comment {\it char}] [numrows {\it n}] }]
 \index{data}\label{cmd:data}
 Specifies the name of a file to read data from.  By default,
 the data will be read into the next free datasets unless the
@@ -192,9 +192,15 @@ end graph
 \mbox{\input{tutorial/fig/tut_graph.inc}}
 \end{minipage}
 
-{\bf Comments:}\index{comment}\index{"!} Comments can be included with the symbol ``\verb+!+''. All characters from ``\verb+!+'' until the end of the line of the data file are ignored. It is possible to change the symbol that indicates a comment with the option `comment'. E.g., with `{\sf data \verb+"+data.csv\verb+"+ comment \#}', lines starting with \# will be treated as comments.
+{\bf Comments:}\index{comment}\index{"!} Comments can be included with the symbol ``\verb+!+''. All characters from ``\verb+!+'' until the end of the line of the data file are ignored. It is possible to change the symbol that indicates a comment with the option `comment'. E.g., with `{\sf data \verb+"+data.csv\verb+"+ comment \#}', lines starting with \# will also be treated as comments.
 
 {\bf Ignore header:}\label{opt:ignore}\index{ignore} The option {\sf ignore {\it n}} makes GLE ignore the first $n$ lines of the data file. This is useful if the first $n$ lines do not contain data.
+
+{\bf Limit reading rows of data:}\label{opt:numrows}\index{numrows} The option {\sf numrows {\it n}} limits the reading of the file to $n$ rows of data.  Commented and empty lines are not counted as rows of data. This is useful to include only a specific amount of data.  Combined with the {\sf ignore} command will instruct GLE to read only a portion of a data file.  For example
+\begin{Verbatim}
+data filename.dat d1 ignore 3 numrows 3
+\end{Verbatim}
+will read only lines 4–6 from file filename.dat into dataset d1.
 
 {\bf Auto key:}\index{key!data based} If the first row of a data file does not contain actual data but instead contains column labels, then these labels are used by GLE to create a key for the graph (Chapter~\ref{key:chap}). GLE automatically detects this case by checking if all fields in the first row are valid numbers or not. If not, then GLE assumes that the first row contains column labels. Column labels that include a space or that could be incorrectly interpreted as a number should be double quoted. Fig.~\ref{fig:autokey} illustrates this with an example.
 
@@ -461,11 +467,11 @@ The file option also accepts variables in place of the file name, e.g.:
 
 % The {\sf AUTOSCALE} option pre-reads the file to scale the axis,
 % which is slow but sometimes required, e.g.:
-% 
+%
 % \begin{Verbatim}
 % 	d1 bigfile a.dat line autoscale
 % \end{Verbatim}
-% 
+%
 % Many (but not all) of the normal dn commands can be used with the
 % {\sf bigfile} command.  E.g., {\sf marker, lstyle, xmin, xmax, ymin, ymax,
 % color and lwidth.}  You cannot use commands like {\sf let} or {\sf bar}
@@ -613,7 +619,7 @@ This syntax can be used to perform transformations on both the $x$ and the $y$-v
 let d1 = 2*x, d1+4
 \end{Verbatim}
 
-will multiply the $x$-values of d1 by 2 and add 4 to the $y$-values. 
+will multiply the $x$-values of d1 by 2 and add 4 to the $y$-values.
 
 This syntax can also be used to define datasets that are not functions. The following example defines a circle:
 
@@ -741,7 +747,7 @@ begin graph
    ...
    data "normal.csv"
    let d2 = hist d1 step 0.5
-   d2 line bar color red 
+   d2 line bar color red
 end graph
 \end{Verbatim}
 
@@ -848,7 +854,7 @@ axis command with the name of that axis. E.g.,
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
  begin graph
-    size 6 3 
+    size 6 3
     xtitle  "X-axis"
     ytitle  "Y-axis"
     x2title "X2-axis"
@@ -1154,7 +1160,7 @@ begin graph
    y2title "Y2title rotated " hei 0.3 rotate
    x2axis off
    y2labels on
-   let d1 = sin(x)*4+5 from 0 to 9 
+   let d1 = sin(x)*4+5 from 0 to 9
    dn line color blue
 end graph
 \end{Verbatim}
@@ -1368,7 +1374,7 @@ begin graph
    xaxis min 86 max 90
    yaxis min 0  max 6
    data "gc_fill.dat"
-   fill d2,x2 color gray40 
+   fill d2,x2 color gray40
    fill x1,d1 color gray10 xmin 85 xmax 88
    fill x1,d1 color gray90 xmin 88 xmax 91
    dn line
