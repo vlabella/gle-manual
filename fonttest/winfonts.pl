@@ -64,7 +64,7 @@ while (my $line = <IN>) {
 		my $id = $1; 
 		my $name = $2;
 		if($clean == 0){
-			if (!(-f "$id.pdf")) {
+			if (!(-f "$name.pdf")) {
 				open(OUT, ">$name.gle");
 				print OUT "size 7.75 7\n";
 				print OUT "include \"font-table.gle\"\n";

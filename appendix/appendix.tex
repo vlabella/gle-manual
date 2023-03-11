@@ -66,7 +66,6 @@ Function name     & Returns  \\ \hline
 {\tt nargs()} \index{nargs()}       	& number of command line arguments \\
 {\tt ndata(ds)} \index{ndata}           & number of points in data set ds (p.~\pageref{ndata})\\
 {\tt ndatasets()} \index{ndatasets}     & number of available data sets\\
-{\tt not(exp)} \index{not()}         	& logical not of {\tt exp} \\
 {\tt pageheight()} \index{pageheight()} & the height of the page (from size command) \\
 {\tt pagewidth()} \index{pagewidth()}	& the width of the page (from size command) \\
 {\tt path\$()} \index{path\$()}         & returns the directory where the script is located \\
@@ -105,11 +104,42 @@ Function Name     & Returns  \\ \hline
 {\tt format\$(exp,format)} \index{format\$()} & format {\tt exp} as specified in {\tt format} (p.~\pageref{formatnum:pg})\\
 \end{supertabular}
 
-\subsection{Mathematical Functions \& Constants}
+\subsection{Logical Operators}
 
-GLE provides the following mathematical functions and constants.  All angles are in radians. The constant values have 16 digits of precision within GLE.  The constants and special functions are from the boost C++ libraries or the C++ standard math libraries.
 
-\begin{supertabular}{ll} \hline
+\begin{tabular}{ll} \hline
+Operator & Meaning  \\ \hline
+{\tt =} \index{=}      & equals (same as assignment) \\
+{\tt \textless \textgreater} \index{\textless \textgreater}  & not equals (in GLE {\tt !} is the comment character)  \\
+{\tt \textless } \index{\textless} & less than\\
+{\tt \textgreater } \index{\textgreater}  & greater than\\
+{\tt \textless =} \index{\textless =}  & less than or equal \\
+{\tt \textgreater =} \index{\textgreater =}  & greater than or equal \\
+{\tt and} \index{and}     & logical and between to expressions e.g. {\tt ( x \textless 1) and  (x \textgreater 10) }\\
+{\tt or} \index{or}     & logical or between to expressions\\
+{\tt not(exp)} \index{not()}   & logical not of {\tt exp} \\
+\end{tabular}
+
+\subsection{Mathematical  Operators, Constants, and Functions}
+
+GLE provides the following mathematical operators, functions, and constants.  All angles are in radians. The constant values have 16 digits of precision within GLE.  The constants and special functions are from the boost C++ libraries or the C++ standard math libraries.
+
+\vspace{2ex}
+
+\begin{tabular}{ll} \hline
+Operator & Meaning  \\ \hline
+{\tt =} \index{=}      & assignment (same as logical equals) \\
+{\tt +} \index{+}  & addition \\
+{\tt -} \index{-} & subtraction \\
+{\tt *} \index{*}  & multiplication\\
+{\tt /} \index{/}  & division \\
+{\tt \textasciicircum } \index{\textasciicircum}  & exponentiation \\
+{\tt \%} \index{\%}     & modulus or remainder\\
+\end{tabular}
+
+\vspace{2ex}
+
+\begin{tabular}{ll} \hline
 Constants & Value  \\ \hline
 {\tt pi} \index{pi}      & $\pi = 3.14159265358979323846 $ \\
 {\tt two\_pi} \index{two\_pi}  & $2\pi $ \\
@@ -118,9 +148,10 @@ Constants & Value  \\ \hline
 {\tt root\_two} \index{root\_two}  & $\sqrt{2}$ \\
 {\tt root\_three} \index{root\_three}  & $\sqrt{3}$ \\
 {\tt \_e\_} \index{\_e\_}     & $e^1$ \\
-\end{supertabular}
+\end{tabular}
+h
 
-
+\vspace{2ex}
 
 \begin{supertabular}{ll} \hline
 Function & Returns  \\ \hline
