@@ -36,48 +36,42 @@
 #                                                                      #
 ########################################################################
 
-#!/usr/bin/perl
-use strict;
-use warnings;
+FONTS = \
+	psagbo.pdf psagb.pdf psagdo.pdf psagd.pdf psbdi.pdf psbd.pdf psbl.pdf psbli.pdf \
+	pshbo.pdf pshb.pdf pscbo.pdf pscb.pdf psco.pdf psc.pdf pshnb.pdf pshnbo.pdf \
+	pshno.pdf pshn.pdf psho.pdf psh.pdf psncsbi.pdf psncsb.pdf psncsi.pdf \
+	psncsr.pdf pspbi.pdf pspb.pdf pspi.pdf pspr.pdf pssym.pdf pstbi.pdf \
+	pstb.pdf psti.pdf pstr.pdf pszcmi.pdf pszd.pdf rmb.pdf rmi.pdf rm.pdf \
+	ssb.pdf ssi.pdf ss.pdf texcmb.pdf texcmex.pdf texcmitt.pdf texcmmi.pdf \
+	texcmr.pdf texcmssb.pdf texcmssi.pdf texcmss.pdf texcmsy.pdf texcmti.pdf \
+	texcmtt.pdf ttb.pdf tti.pdf tt.pdf
 
-my ($gle, $extra) = @ARGV;
+FONTS_EXTRA = \
+	plba.pdf plcc.pdf plcg.pdf plci.pdf plcr.pdf plcs.pdf pldr.pdf plge.pdf \
+	plgg.pdf plgi.pdf plsa.pdf plsg.pdf plsr.pdf plss.pdf plsym1.pdf plsym2.pdf \
+	plti.pdf pltr.pdf pshc.pdf pshcb.pdf pshcdo.pdf pshcbo.pdf
 
-if(not defined $gle){
-	print "Must pass full path to gle executable as first argument on command line.";
-	exit();
-}
-# add quotes around $gle in case there is a space in the path
-# because quotes seem to get dropped even if passed in on the command line
-$gle = '"'.$gle.'"';
+!if "$(GLE_TOP)" == ""
+GLE_TOP="C:\Program Files\gle"
+!endif
+GLE_ROOT		=$(GLE_TOP)\bin
+GLE				=$(GLE_ROOT)\gle
+GLE_CAIRO		=$(GLE_ROOT)\gle -cairo
+GLEBTOOL		=$(GLE_ROOT)\glebtool
 
-my $clean = 0;
-if(defined $extra){
-	if(uc($extra) eq "CLEAN"){
-		$clean = 1;
-	}
-}
+.SUFFIXES: .gle .pdf
 
-open(IN, "fonts.csv");
-while (my $line = <IN>) {
-	chop($line);
-	if ($line =~ /^([0-9]+)\,([^\,]+)\,/) {
-		my $id = $1;
-		my $name = $2;
-		if($clean == 0){
-			if (!(-f "$name.pdf")) {
-				open(OUT, ">$name.gle");
-				print OUT "size 7.75 7\n";
-				print OUT "include \"font-table.gle\"\n";
-				print OUT "show_table \"$name\" \"$id\"\n";
-				close(OUT);
-				# system("$gle -d pdf -o $name.pdf font-table.gle $name");
-				system("$gle -d pdf -o $name");
-			}
-		}else{
-			unlink("$name.gle");
-			unlink("$name.eps");
-			unlink("$name.pdf");
-		}
-	}
-}
-close(IN);
+all: $(FONTS) $(FONTS_ETRA) extrafonts.tex
+
+$(FONTS):
+	$(GLE) -d pdf -o $@ font-table.gle $*
+
+$(FONTS_EXTRA):
+	$(GLE) -d pdf -o $@ font-table.gle $*
+
+extrafonts.tex:
+	$(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+
+clean:
+	erase /Q $(FONTS) $(FONTS_EXTRA) extrafonts.tex
+

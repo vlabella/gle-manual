@@ -164,12 +164,18 @@ index:
 	makeindex gle-manual
 
 fonts:
-	cd fonttest & perl winfonts.pl $(GLE)
-	cd fonttest & $(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+	cd fonttest & nmake /nologo -f Makefile.vc
 
 fonts-clean:
-	-erase /Q fonttest\extrafonts.tex
-	cd fonttest & perl winfonts.pl $(GLE) clean
+	cd fonttest & nmake /nologo -f Makefile.vc clean
+
+#fonts:
+#	cd fonttest & perl winfonts.pl $(GLE)
+#	cd fonttest & $(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+
+#fonts-clean:
+#	-erase /Q fonttest\extrafonts.tex
+#	cd fonttest & perl winfonts.pl $(GLE) clean
 
 clean: fonts-clean
 	-erase /Q *.pdf *.idx *.aux *.dvi *.log *.out *.ilg *.ind *.toc defs.tex

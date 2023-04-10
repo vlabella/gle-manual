@@ -107,3 +107,4 @@ fclose fi
 ! print name$+" ("+id$+")"
 
 show_table name$ id$
+
