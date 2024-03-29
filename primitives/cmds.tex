@@ -134,6 +134,7 @@ can be set with various GLE commands.
 {\sf set ticksscale {\it s}}  \\
 {\sf size {\it w} {\it h}}  \\
 {\sf sub {\it sub-name parameter1 parameter2} etc...}  \\
+{\tt swap {\it a b } } \\
 {\sf tex {\it string} [name {\it xxx}] [add {\it val}]}  \\
 {\sf text {\it unquoted-text-string}}  \\
 {\sf write {\it string\$} $\ldots$}
@@ -182,8 +183,8 @@ direction.  This is important when constructing a path.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-amove 0.5 0.5 
-rline 1 0.5 arrow end 
+amove 0.5 0.5
+rline 1 0.5 arrow end
 set lwidth 0.1
 arc 1 10 160
 arc 0.5 -90  0
@@ -201,12 +202,12 @@ vectors instead of a vertex at the point {\it (x1,y1)}.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-amove 1.5 .5 
+amove 1.5 .5
 rline 1 0
-set lwidth .1 
+set lwidth .1
 arcto 2 0 -1 1 .5
 set lwidth 0
-rline -1 1 
+rline -1 1
 \end{Verbatim}
 \end{minipage}
 \hfill
@@ -330,7 +331,7 @@ the picture twice as wide and three times higher.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-begin scale 3 1 
+begin scale 3 1
    begin rotate 30
       text This is
    end rotate
@@ -358,9 +359,9 @@ everything will line up.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-begin table 
+begin table
    Here is my table
-   of text see  how 
+   of text see  how
      22   44    55  33
      0.1  999   1   .2
      3    33    2   33
@@ -413,15 +414,15 @@ thinking it isn't at the beginning of a line. E.g.,
 set hei 0.25 just tl font tt
 begin text width 5
   This is my paragraph of text to see
-  if it wraps things at four cm as I have 
+  if it wraps things at four cm as I have
   told it to do.
-end text 
+end text
 ...
-begin text 
-  Now some text 
+begin text
+  Now some text
   without a width
   specified
-end text 
+end text
 \end{Verbatim}
 \end{minipage}
 \hfill
@@ -532,10 +533,10 @@ relative movements from the vector before.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-amove 1 1 
-curve 1 0 0 1 1 0 0 -1 1 0 
-amove 3.6 1 
-curve 0 1 0 1 1 0 0 -1 0 -1 
+amove 1 1
+curve 1 0 0 1 1 0 0 -1 1 0
+amove 3.6 1
+curve 0 1 0 1 1 0 0 -1 0 -1
 \end{Verbatim}
 \end{minipage}
 \hfill
@@ -806,9 +807,9 @@ all relative to the current point.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-amove   0.5 2.8 
+amove   0.5 2.8
 rbezier 1   1   2 -1  3   1
-amove   0.2 0.2 
+amove   0.2 0.2
 rbezier 1   1   2 1.2 1.8 0
 \end{Verbatim}
 \end{minipage}
@@ -938,12 +939,12 @@ Sets the current colour for all future drawing operations. GLE supports all SVG/
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
 mm$ = "blue"
-amove 0.5 0.5 
+amove 0.5 0.5
 for c = 0 to 1 step 0.05
    box 0.2 2 fill (c) nobox
    rmove 0.2 0
-next c 
-amove 2 1 
+next c
+amove 2 1
 box 2 1 fill white nobox
 rmove -0.2 0.2
 box 2 1 fill mm$
@@ -1006,9 +1007,9 @@ on a PostScript printer.  This has a great effect on their appearance.
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
 set font pltr
-amove .2 .2 
+amove .2 .2
 text Tester
-set fontlwidth .1 
+set fontlwidth .1
 set cap round
 rmove 0 1.5
 text Tester
@@ -1077,7 +1078,7 @@ the second a run length in white, the third a run length in black, etc.
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
-set just left 
+set just left
 for z = 0 to 4
    set lstyle z
    rline 2 0
@@ -1145,6 +1146,9 @@ Subroutines are re-entrant.
      slope = tree(2,4,"mytree")  (Using subroutine in an expression)
 \end{Verbatim}
 
+\item[{\sf swap {\it a b} }]
+\index{swap} Swaps the values of the variables {\it a} and {\it b}.
+
 \item[{\sf tex {\it string} [name {\it xxx}] [add {\it val}]}]
 \index{tex}
 Draw a \LaTeX{} expression at the current point using the current value of `justify'. See Sec.~\ref{latexexp:sec} for more information. Using the {\sf name} option, the \LaTeX{} expression can be named, just like a box. The size of the virtual named box can be increased with the {\sf add} option.
@@ -1172,7 +1176,7 @@ string variable, or string expression as a parameter. If write has more than one
 a$ = "Hello there "
 xx = sqrt(10)
 t$ = time$()
-c$ = a$+t$ 
+c$ = a$+t$
 write a$+t$ xx
 \end{Verbatim}
 \end{minipage}
