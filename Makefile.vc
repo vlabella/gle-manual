@@ -155,7 +155,7 @@ install:
 	copy gle-manual.pdf $(INSTALL_FOLDER)
 
 pdf: defs.tex
-	texify -p -q gle-manual.tex
+	texify -p gle-manual.tex
 
 dvi:
 	texify -q gle-manual.tex
