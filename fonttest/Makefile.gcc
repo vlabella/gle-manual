@@ -68,7 +68,7 @@ all: $(FONTS) $(COMPILE_EXTRA_FONTS) extrafonts.tex
 	$(GLE) -d pdf -o $*.pdf font-table.gle $*
 
 extrafonts.tex:
-	../../build/bin/glebtool -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+	glebtool -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
 
 clean:
 	rm -f *.pdf extrafonts.tex
