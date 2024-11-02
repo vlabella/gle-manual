@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build PDF of GLE Manual
 
 # Controls when the workflow will run
 on:
@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout GLE Manual
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       
       - name: update apt
         run: sudo apt update
