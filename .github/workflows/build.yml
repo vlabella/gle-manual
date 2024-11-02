@@ -32,7 +32,7 @@ jobs:
         # dont install qt - not building the GUI
         run: |
          set -x
-         touch configure.args
+         touch ${{github.workspace}}/gle/configure.args
          sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
          cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
          libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
