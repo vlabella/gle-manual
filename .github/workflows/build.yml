@@ -49,7 +49,7 @@ jobs:
 
       - name: Build GLE
         working-directory: ${{github.workspace}}/gle 
-        run: cmake --build build --target gle
+        run: cmake --build build
 
       - name: Install GLE
         working-directory: ${{github.workspace}}/gle 
