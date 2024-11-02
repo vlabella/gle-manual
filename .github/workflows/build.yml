@@ -44,12 +44,15 @@ jobs:
           path: gle
 
       - name: Configure cmake
+        working-directory: ${{github.workspace}}/gle 
         run: xargs -t < configure.args cmake -S src -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Build GLE
+        working-directory: ${{github.workspace}}/gle 
         run: xargs -t < build.args cmake --build build --target gle
 
       - name: Install GLE
+        working-directory: ${{github.workspace}}/gle 
         run: DESTDIR=destroot cmake --install build
         
       - name: Build GLE Manual
