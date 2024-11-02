@@ -24,7 +24,13 @@ jobs:
     steps:
       - name: Checkout GLE Manual
         uses: actions/checkout@v4
-      
+
+      - name: Checkout GLE
+        uses: actions/checkout@v4
+        with:
+          repository: "vlabella/gle"
+          path: gle
+
       - name: update apt
         run: sudo apt update
 
@@ -36,12 +42,6 @@ jobs:
          sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
          cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
          libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
-
-      - name: Checkout GLE
-        uses: actions/checkout@v4
-        with:
-          repository: "vlabella/gle"
-          path: gle
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle 
