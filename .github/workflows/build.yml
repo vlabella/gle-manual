@@ -45,7 +45,7 @@ jobs:
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle 
-        run: xargs -t < configure.args cmake -S src -B build -DCMAKE_BUILD_TYPE=Release
+        run: xargs -t < configure.args cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF
 
       - name: Build GLE
         working-directory: ${{github.workspace}}/gle 
