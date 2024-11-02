@@ -64,8 +64,8 @@ jobs:
       - name: Build GLE Manual
         working-directory: ${{github.workspace}}
         run: |
-          export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH; 
-          export GLE_INC=${{github.workspace}}/gle-library/include:$GLE_INC; 
+          export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH 
+          export GLE_INC=${{github.workspace}}/gle-library/include:$GLE_INC 
           make -f Makefile.gcc
         
       - name: Upload Artifacts - GLE Manual PDF
