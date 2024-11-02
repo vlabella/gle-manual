@@ -45,11 +45,11 @@ jobs:
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle 
-        run: xargs -t < configure.args cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF
+        run: cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF
 
       - name: Build GLE
         working-directory: ${{github.workspace}}/gle 
-        run: xargs -t < build.args cmake --build build --target gle
+        run: cmake --build build --target gle
 
       - name: Install GLE
         working-directory: ${{github.workspace}}/gle 
