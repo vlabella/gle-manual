@@ -74,7 +74,7 @@ clean:
 	$(MAKE) -C advanced/fig -f Makefile.gcc clean
 	$(MAKE) -C utilities/fig -f Makefile.gcc clean
 	$(MAKE) -C appendix/fig -f Makefile.gcc clean
-	$(MAKE) -C prog/fig -f Makefile.gcc clean	
+	$(MAKE) -C prog/fig -f Makefile.gcc clean
 
 # PDFS = $(addsuffix .pdf, $(basename $(EPSS)))
 
@@ -82,5 +82,5 @@ clean:
 # 	epstopdf $<
 
 defs.tex:
-	../build/bin/glebtool -latexdef defs.tex hascairo $(HAVE_CAIRO)
-	../build/bin/glebtool -latexversion defs.tex
+	glebtool -latexdef defs.tex hascairo $(HAVE_CAIRO)
+	glebtool -latexversion defs.tex
