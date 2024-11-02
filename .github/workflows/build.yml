@@ -37,6 +37,10 @@ jobs:
           repository: "vlabella/gle-library"
           path: gle-library
 
+      - name: Add gle-library to GLE_INC
+        working-directory: ${{github.workspace}}
+        run: export GLE_INC=${{github.workspace}}/gle-library/include:$GLE_INC 
+
       - name: update apt
         run: sudo apt update
 
@@ -56,17 +60,18 @@ jobs:
       - name: Build GLE
         working-directory: ${{github.workspace}}/gle 
         run: cmake --build build
-
+        
       - name: Install GLE
         working-directory: ${{github.workspace}}/gle 
         run: DESTDIR=destroot cmake --install build
-        
+
+      - name: Add GLE to PATH
+        working-directory: ${{github.workspace}}
+        run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH 
+
       - name: Build GLE Manual
         working-directory: ${{github.workspace}}
-        run: |
-          export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH 
-          export GLE_INC=${{github.workspace}}/gle-library/include:$GLE_INC 
-          make -f Makefile.gcc
+        run: make -f Makefile.gcc
         
       - name: Upload Artifacts - GLE Manual PDF
         uses: actions/upload-artifact@v4.4.3
