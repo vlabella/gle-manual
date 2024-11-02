@@ -29,20 +29,38 @@ jobs:
         run: sudo apt update
 
       - name: install packages
-        run: sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng
+        # dont install qt - not building the GUI
+        run: |
+         set -x
+         touch configure.args
+         sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng
+         cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev
+         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
 
-      # download GLE and install it
-      #- name: Install GLE
-      
+      - name: Checkout GLE
+        uses: actions/checkout@v4
+        with:
+          repository: "vlabella/gle"
+          path: gle
+
+      - name: Configure cmake
+        run: xargs -t < configure.args cmake -S src -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build GLE
+        run: xargs -t < build.args cmake --build build --target gle
+
+      - name: Install GLE
+        run: DESTDIR=destroot cmake --install build
+        
       - name: Build GLE Manual
-        working-directory: ${{github.workspace}}/gle-manual
-        run: export PATH=${{github.workspace}}/destroot/usr/local/bin:$PATH; make -f Makefile.gcc
+        working-directory: ${{github.workspace}}
+        run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH; make -f Makefile.gcc
         
       - name: Upload Artifacts - GLE Manual PDF
         uses: actions/upload-artifact@v4.4.3
         with:
           name: GLE Manual PDF
-          path: ${{github.workspace}}/gle-manual/gle-manual.pdf
+          path: ${{github.workspace}}/gle-manual.pdf
           if-no-files-found: warn
           retention-days: 0
           compression-level: 0
