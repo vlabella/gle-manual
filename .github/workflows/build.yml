@@ -71,7 +71,10 @@ jobs:
 
       - name: Build GLE Manual
         working-directory: ${{github.workspace}}
-        run: make -f Makefile.gcc
+        run: |
+          export GLE_INC=${{github.workspace}}/gle-library/include:$GLE_INC \
+          PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH \
+          make -f Makefile.gcc
         
       - name: Upload Artifacts - GLE Manual PDF
         uses: actions/upload-artifact@v4.4.3
