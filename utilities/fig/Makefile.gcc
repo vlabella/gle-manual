@@ -37,8 +37,8 @@
 ########################################################################
 
 EPSS = xyz.pdf fitls.pdf fitz1.pdf jack.pdf saddle.pdf \
-       surf1.pdf surf2.pdf surf3.pdf surf4.pdf surf5.pdf surf5b.pdf saddle-contour.inc volcano.inc \
-       gaussian.inc
+       surf1.pdf surf2.pdf surf3.pdf surf4.pdf surf5.pdf \
+       surf5b.pdf volcano.inc gaussian.inc saddle-contour.inc
 
 ifeq ($(RUNBUILD),1)
 	GLE = ../../../build/bin/gle
