@@ -36,9 +36,16 @@
 #                                                                      #
 ########################################################################
 
+UNAME_S := $(shell uname -s)
+
 EPSS = xyz.pdf fitls.pdf fitz1.pdf jack.pdf saddle.pdf \
        surf1.pdf surf2.pdf surf3.pdf surf4.pdf surf5.pdf \
-       surf5b.pdf volcano.inc gaussian.inc saddle-contour.inc
+       surf5b.pdf \
+
+# these cause segmentation fault on macOS
+ifneq ($(UNAME_S),Darwin)
+	EPSS = $(EPSS) volcano.inc gaussian.inc saddle-contour.inc
+endif
 
 ifeq ($(RUNBUILD),1)
 	GLE = ../../../build/bin/gle

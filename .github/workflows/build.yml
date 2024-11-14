@@ -39,7 +39,7 @@ jobs:
 
       - name: Add gle-library to GLE_USRLIB
         working-directory: ${{github.workspace}}
-        run: export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB 
+        run: export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB
 
       - name: update apt
         run: sudo apt update
@@ -54,20 +54,20 @@ jobs:
          libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
 
       - name: Configure cmake
-        working-directory: ${{github.workspace}}/gle 
+        working-directory: ${{github.workspace}}/gle
         run: cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF
 
       - name: Build GLE
-        working-directory: ${{github.workspace}}/gle 
+        working-directory: ${{github.workspace}}/gle
         run: cmake --build build
-        
+
       - name: Install GLE
-        working-directory: ${{github.workspace}}/gle 
+        working-directory: ${{github.workspace}}/gle
         run: DESTDIR=destroot cmake --install build
 
       - name: Add GLE to PATH
         working-directory: ${{github.workspace}}
-        run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH 
+        run: export PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH
 
       - name: Build GLE Manual
         working-directory: ${{github.workspace}}
@@ -75,7 +75,7 @@ jobs:
           export GLE_USRLIB=${{github.workspace}}/gle-library/include:$GLE_USRLIB \
           PATH=${{github.workspace}}/gle/destroot/usr/local/bin:$PATH && \
           make -f Makefile.gcc
-          
+
       - name: Upload Artifacts - GLE Manual PDF
         uses: actions/upload-artifact@v4.4.3
         with:
