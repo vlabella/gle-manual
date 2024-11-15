@@ -56,7 +56,7 @@ endif
 ifneq ($(UNAME_S),Darwin)
 all: $(EPSS)
 else
-all: $(EPSS) create_dummy_figures
+all: $(EPSS) create-dummy-figuress
 endif
 
 %.pdf: %.gle
