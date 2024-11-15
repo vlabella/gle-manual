@@ -72,6 +72,6 @@ clean:
 # build the manual otherwise build fails - which causes workflow to fail on github
 # for packaging for macOS
 create-dummy-figures:
-	cp xyz.eps volcano.eps
-	cp xyz.eps gaussian.eps
-	cp xyz.eps saddle-coutour.eps
+	cp xyz.pdf volcano.pdf
+	cp xyz.pdf gaussian.pdf
+	cp xyz.pdf saddle-coutour.pdf
