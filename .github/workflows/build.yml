@@ -55,7 +55,7 @@ jobs:
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle
-        run: cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF
+        run: cmake -S src -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GUI=OFF -DBUILD_MANIP=OFF
 
       - name: Build GLE
         working-directory: ${{github.workspace}}/gle
