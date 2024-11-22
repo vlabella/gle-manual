@@ -35,7 +35,7 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                        #
 #                                                                      #
 ########################################################################
-
+UNAME_S := $(shell uname -s)
 
 all: fig fonts pdf defs.tex
 
