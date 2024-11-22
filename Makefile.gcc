@@ -58,7 +58,7 @@ else
 # the coutour figures cause a seg fault in GLE and this workaround eliminates
 # them so the workflow finishes on GitHub.  Need to fix.
 pdf: defs.tex
-	pdflatex "\def\APPLE \input{gle-manual.tex}"
+	pdflatex "\def\APPLE{1} \input{gle-manual.tex}"
 endif
 
 
