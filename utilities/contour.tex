@@ -64,7 +64,11 @@ contour_labels "saddle-clabels.dat" "fix 1"
 \end{minipage}
 \hfill
 \begin{minipage}[c]{7cm}
+\ifdefined\APPLE
+% surface countours cause seg fault on macOS
+\else
 \mbox{\input{utilities/fig/saddle-contour.inc}}
+\fi
 \end{minipage}
 
 The contour block can contain the following commands:
@@ -106,7 +110,11 @@ end graph
 \end{minipage}
 \hfill
 \begin{minipage}[c]{7cm}
+\ifdefined\APPLE
+% surface countours cause seg fault on macOS
+\else
 \mbox{\input{utilities/fig/volcano.inc}}
+\fi
 \end{minipage}
 
 The options to the colormap command are as follows:
@@ -155,6 +163,10 @@ color_range_vertical zmin 0 zmax 1 zstep 0.1 format "fix 1"
 \end{minipage}
 \hfill
 \begin{minipage}[c]{7cm}
+\ifdefined\APPLE
+% surface countours cause seg fault on macOS
+\else
 \mbox{\input{utilities/fig/gaussian.inc}}
+\fi
 \end{minipage}
 \postglegraph{}
