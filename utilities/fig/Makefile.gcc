@@ -53,11 +53,7 @@ else
 	GLE = gle
 endif
 
-ifneq ($(UNAME_S),Darwin)
 all: $(EPSS)
-else
-all: $(EPSS) create-dummy-figures
-endif
 
 %.pdf: %.gle
 	$(GLE) -d pdf $<
@@ -67,11 +63,3 @@ endif
 
 clean:
 	rm -rf *.pdf *.inc .gle fitz.z saddle.z saddle-c*.dat volcano-c*.dat
-
-# need to do this on macos as these files need to exist to
-# build the manual otherwise build fails - which causes workflow to fail on github
-# for packaging for macOS
-create-dummy-figures:
-	cp xyz.pdf volcano.pdf
-	cp xyz.pdf gaussian.pdf
-	cp xyz.pdf saddle-coutour.pdf
