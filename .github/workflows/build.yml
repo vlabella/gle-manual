@@ -31,6 +31,10 @@ jobs:
           repository: "vlabella/gle"
           path: gle
 
+      - name: Get Version Number from GLE's CMakeLists.txt file
+        id: version-number
+        run: echo "VERSION=$(awk 'tolower($0) ~ /project\([[:blank:]]*[[:alnum:]]+[[:blank:]]+version[[:blank:]]+[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+[[:blank:]]*\)/{print $4}' gle/src/CMakeLists.txt)" >> $GITHUB_ENV
+
       - name: Checkout GLE Library
         uses: actions/checkout@v4
         with:
