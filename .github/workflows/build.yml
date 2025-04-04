@@ -93,7 +93,7 @@ jobs:
 
         # create release if started from gle-release workflow
       - name: Create Release
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == "gle-release"}}
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
@@ -105,7 +105,7 @@ jobs:
 
         # upload to release location if started from gle-release workflow
       - name: Upload PDF to Release Location
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == "gle-release"}}
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -116,7 +116,7 @@ jobs:
 
         # upload to GLE release location as well
       - name: Upload PDF to Release Location
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == "gle-release"}}
+        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GLE_PAT }}
