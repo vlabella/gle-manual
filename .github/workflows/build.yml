@@ -102,7 +102,6 @@ jobs:
           body_path:  "Release to coincide with GLE release of same tag"
           draft: false
           prerelease: false
-          overwrite: true
 
         # upload to release location if started from gle-release workflow
       - name: Upload PDF to Release Location
