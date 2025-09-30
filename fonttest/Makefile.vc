@@ -51,31 +51,21 @@ FONTS_EXTRA = \
 	plgg.pdf plgi.pdf plsa.pdf plsg.pdf plsr.pdf plss.pdf plsym1.pdf plsym2.pdf \
 	plti.pdf pltr.pdf pshc.pdf pshcb.pdf pshcdo.pdf pshcbo.pdf
 
-# !if "$(GLE_TOP)" == ""
-# GLE_TOP="C:\Program Files\gle"
-# !endif
-# GLE_ROOT         = $(GLE_TOP)\bin
-# GLE              = $(GLE_ROOT)\gle
-# GLE_CAIRO        = $(GLE_ROOT)\gle -cairo
-# GLEBTOOL         = $(GLE_ROOT)\glebtool
-# HAVE_EXTRA_FONTS = 1
+!IF "$(HAVE_EXTRA_FONTS)" == "1"
+	FONTS=$(FONTS) $(FONTS_EXTRA)
+!ENDIF
+
+!IF "$(GLE)" == ""
+	GLE = gle
+!endif
 
 .SUFFIXES: .gle .pdf
 
-all: $(FONTS) $(FONTS_ETRA)
+all: $(FONTS)
 
-#extrafonts.tex
-
-$(FONTS):
+$(FONTS): font-table.gle
 	$(GLE) -d pdf -o $@ font-table.gle $*
-
-$(FONTS_EXTRA):
-	$(GLE) -d pdf -o $@ font-table.gle $*
-
-# deprecated - created by script at root folder
-#extrafonts.tex:
-#	$(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
 
 clean:
-	-erase /Q $(FONTS) $(FONTS_EXTRA) extrafonts.tex
+	-erase /Q $(FONTS) $(FONTS_EXTRA)
 
