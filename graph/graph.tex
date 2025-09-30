@@ -357,10 +357,10 @@ The options {\sf impulses}, {\sf steps}, {\sf fsteps}, {\sf hist}, and {\sf bar}
 These qualifiers are all fairly self explanatory.  See the {\sf lstyle} command
 in Chapter~\ref{prim:chap} (Page~\pageref{lstyle:cmd}) for details of specifying line styles.
 
-\item[{\sf dn marker {\it marker-name} [mcolor {\it c}] [msize {\it marker-size}] [mdata {\it dn}] [mdist {\it dexp}]}]
+\item[{\sf dn marker {\it marker-name} [color {\it c}] [msize {\it marker-size}] [mdata {\it dn}] [mdist {\it dexp}]}]
 \index{dn!marker}
 \index{marker}
-Specifies the marker to be used for the dataset.  There is a set of pre-defined markers (refer to Appendix A.1 for a list) which can be specified by name (e.g., {\sf circle, square, triangle, diamond, cross, ...}). The marker's color is be specified with the `{\sf color}' option, which sets both the line and marker color as well as any error bars.  Alternatively,  the `{\sf mcolor}' option can be utilized which sets the the marker color and error bars independently of the line color.
+Specifies the marker to be used for the dataset.  There is a set of pre-defined markers (refer to Appendix A.1 for a list)  which can be specified by name (e.g., {\sf circle, square, triangle, diamond, cross, ...}). The marker's color can be specified with the `{\sf color}' option.
 
 Markers can also be drawn using a user-defined subroutine (See the {\sf define marker} command in Chapter 2).  The {\sf mdata} option allows a secondary dataset to be defined which will be used to pass another parameter to the marker subroutine, this allows each marker to be drawn at a different and date dependent angle, size or colour.
 

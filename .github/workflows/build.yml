@@ -12,10 +12,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Run workflow from GLE release workflow - uploads artifacts to release
-  repository_dispatch:
-    types: [gle-release]
-
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -57,7 +53,7 @@ jobs:
          touch ${{github.workspace}}/gle/configure.args
          sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
          cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
-         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev latexmk
+         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle
@@ -90,38 +86,3 @@ jobs:
           if-no-files-found: warn
           retention-days: 0
           compression-level: 0
-
-        # create release if started from gle-release workflow
-      - name: Create Release
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          tag_name: ${{ github.event.client_payload.tag }}
-          name: ${{ github.event.client_payload.tag }}
-          body:  "Release to coincide with GLE release of same tag"
-          draft: false
-          prerelease: false
-
-        # upload to release location if started from gle-release workflow
-      - name: Upload PDF to Release Location
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file_glob: true
-          file: ${{github.workspace}}/gle-manual.pdf
-          tag: ${{ github.event.client_payload.tag }}
-          overwrite: true
-
-        # upload to GLE release location as well
-      - name: Upload PDF to Release Location
-        if: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'gle-release'}}
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GLE_PAT }}
-          file_glob: true
-          file: ${{github.workspace}}/gle-manual.pdf
-          tag: ${{ github.event.client_payload.tag }}
-          overwrite: true
-          repo_name: vlabella/GLE

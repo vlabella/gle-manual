@@ -197,8 +197,11 @@ figures: $(GLE_FIGURES)
 # 	epstopdf $<
 
 defstex:
-	$(GLEBTOOL) -latexdef defs.tex hascairo $(HAVE_CAIRO)
-	$(GLEBTOOL) -latexversion defs.tex
+	create-defs.bat
+
+# deprecated do not use glebtool - use scrip and gle
+#	$(GLEBTOOL) -latexdef defs.tex hascairo $(HAVE_CAIRO)
+#	$(GLEBTOOL) -latexversion defs.tex
 
 .SUFFIXES: .gle .pdf .inc
 

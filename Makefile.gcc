@@ -52,7 +52,7 @@ fig:
 
 ifneq ($(UNAME_S),Darwin)
 pdf: defs.tex
-	latexmk -pdf gle-manual.tex
+	pdflatex gle-manual.tex
 else
 # define the APPLE command to elimnate the countour plots for macOS in utilities\countour.tex
 # the coutour figures cause a seg fault in GLE and this workaround eliminates
@@ -60,6 +60,7 @@ else
 pdf: defs.tex
 	pdflatex "\def\APPLE{1} \input{gle-manual.tex}"
 endif
+
 
 dvi:
 	latex gle-manual.tex
@@ -90,6 +91,11 @@ clean:
 # %.pdf: %.eps
 # 	epstopdf $<
 
+
 defs.tex:
-	glebtool -latexdef defs.tex hascairo $(HAVE_CAIRO)
-	glebtool -latexversion defs.tex
+	./create-defs.sh
+
+
+# - deprecated
+#	glebtool -latexdef defs.tex hascairo $(HAVE_CAIRO)
+#	glebtool -latexversion defs.tex
