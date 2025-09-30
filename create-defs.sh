@@ -1,5 +1,6 @@
 #!/bin/bash
 # create-defs.sh   -- creates the defs.tex file needed for the manual by running gle
+#
 # Extract version number
 version=$(gle /info | grep "GLE version" | awk -F: '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')
 # Extract Cairo support status and convert to 1 or 0
