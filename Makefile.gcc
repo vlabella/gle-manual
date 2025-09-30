@@ -61,7 +61,6 @@ pdf: defs.tex
 	pdflatex "\def\APPLE{1} \input{gle-manual.tex}"
 endif
 
-
 dvi:
 	latex gle-manual.tex
 
