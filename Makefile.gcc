@@ -91,6 +91,7 @@ clean:
 # 	epstopdf $<
 
 
+# creates defs.tex and fonttest\extrafonts.tex
 defs.tex:
 	./create-defs.sh
 

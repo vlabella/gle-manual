@@ -2,6 +2,12 @@
 :: create-defs.bat -- creates the defs.tex file needed for the manual by running gle
 setlocal enabledelayedexpansion
 
+:: Default to 0 if no argument is provided
+set "extrafontflag=0"
+if not "%~1"=="" (
+    set "extrafontflag=%~1"
+)
+
 :: Initialize variables
 set "version="
 set "cairo="
@@ -34,5 +40,13 @@ for /f "tokens=1,* delims=:" %%A in ('gle /info') do (
     echo \newcommand{\gleversion}{%version%}
     echo \newcommand{\hascairo}[1]{%cairo%}
 ) > defs.tex
+
+:: Create extrafont.tex
+
+if "%extrafontflag%"=="1" (
+    echo \newcommand{\extrafonts}[1]{#1} > "fonttest\extrafonts.tex"
+) else (
+    echo \newcommand{\extrafonts}[1]{} > "fonttest\extrafonts.tex"
+)
 
 endlocal

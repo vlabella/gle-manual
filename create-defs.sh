@@ -10,8 +10,27 @@ if [[ "$cairo_raw" == "Yes" ]]; then
 else
   cairo=
 fi
+
+# Detect if running on macOS
+# define the APPLE command to elimnate the countour plots for macOS in utilities\countour.tex
+# the coutour figures cause a seg fault in GLE and this workaround eliminates
+# them so the workflow finishes on GitHub.  Need to fix.
+if [[ "$(uname)" == "Darwin" ]]; then
+  apple="\\def\\APPLE{1}"
+else
+  apple=""
+fi
+
 # Write both commands to defs.tex
 {
   echo "\\newcommand{\\gleversion}{$version}"
   echo "\\newcommand{\\hascairo}[1]{$cairo}"
+  echo "$apple"
 } > defs.tex
+
+# Handle command-line argument for extrafont.tex
+if [[ "$1" == "1" ]]; then
+  echo "\\newcommand{\\extrafonts}[1]{#1}" > fonttest/extrafonts.tex
+else
+  echo "\\newcommand{\\extrafonts}[1]{}" > fonttest/extrafonts.tex
+fi

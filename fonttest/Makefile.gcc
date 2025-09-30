@@ -62,13 +62,16 @@ else
 	GLE = gle
 endif
 
-all: $(FONTS) $(COMPILE_EXTRA_FONTS) extrafonts.tex
+all: $(FONTS) $(COMPILE_EXTRA_FONTS)
+
+#extrafonts.tex
 
 %.pdf: font-table.gle
 	$(GLE) -d pdf -o $*.pdf font-table.gle $*
 
-extrafonts.tex:
-	glebtool -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+# created by shell script in root folder now
+#extrafonts.tex:
+	#glebtool -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
 
 clean:
 	rm -f *.pdf extrafonts.tex

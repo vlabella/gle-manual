@@ -136,14 +136,14 @@ prog\fig\axisformat.pdf
 
 # set this to location of GLE when building manual if not installed in path
 !if "$(GLE_TOP)" == ""
-GLE_TOP="C:\Program Files\gle"
+GLE_TOP=C:\Program Files\gle
 !endif
-GLE_ROOT		=$(GLE_TOP)\bin
-GLE				=$(GLE_ROOT)\gle
-GLE_CAIRO		=$(GLE_ROOT)\gle -cairo
-GLEBTOOL		=$(GLE_ROOT)\glebtool
-HAVE_CAIRO		=1
-HAVE_EXTRA_FONTS=1
+GLE              = "$(GLE_TOP)\bin\gle"
+GLE_CAIRO        = $(GLE) -cairo
+HAVE_CAIRO       = 1
+HAVE_EXTRA_FONTS = 1
+
+#GLEBTOOL         = $(GLE_ROOT)\glebtool
 
 # location where manual PDF is installed
 INSTALL_FOLDER	=$(GLE_TOP)\doc
@@ -164,10 +164,10 @@ index:
 	makeindex gle-manual
 
 fonts:
-	cd fonttest & nmake /nologo -f Makefile.vc
+	cd fonttest & nmake /nologo -f Makefile.vc GLE=\"$(GLE)\" HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
 
 fonts-clean:
-	cd fonttest & nmake /nologo -f Makefile.vc clean
+	cd fonttest & nmake /nologo -f Makefile.vc clean GLE=\"$(GLE)\" HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
 
 #fonts:
 #	cd fonttest & perl winfonts.pl $(GLE)
@@ -196,6 +196,7 @@ figures: $(GLE_FIGURES)
 # %.pdf: %.eps
 # 	epstopdf $<
 
+#creates defs.tex and fontttest\extrafonts.tex
 defstex:
 	create-defs.bat
 
