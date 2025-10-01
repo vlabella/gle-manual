@@ -35,7 +35,6 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                        #
 #                                                                      #
 ########################################################################
-UNAME_S := $(shell uname -s)
 
 all: fig fonts pdf defs.tex
 
@@ -50,16 +49,12 @@ fig:
 	$(MAKE) -C appendix/fig -f Makefile.gcc
 	$(MAKE) -C prog/fig -f Makefile.gcc
 
-ifneq ($(UNAME_S),Darwin)
 pdf: defs.tex
 	pdflatex gle-manual.tex
-else
-# define the APPLE command to elimnate the countour plots for macOS in utilities\countour.tex
-# the coutour figures cause a seg fault in GLE and this workaround eliminates
-# them so the workflow finishes on GitHub.  Need to fix.
-pdf: defs.tex
-	pdflatex "\def\APPLE{1} \input{gle-manual.tex}"
-endif
+
+# creates defs.tex
+defs.tex:
+	./create-defs.sh
 
 dvi:
 	latex gle-manual.tex
@@ -91,9 +86,6 @@ clean:
 # 	epstopdf $<
 
 
-# creates defs.tex and fonttest\extrafonts.tex
-defs.tex:
-	./create-defs.sh
 
 
 # - deprecated
