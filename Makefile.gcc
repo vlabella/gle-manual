@@ -50,7 +50,9 @@ fig:
 	$(MAKE) -C prog/fig -f Makefile.gcc
 
 pdf: defs.tex
-	pdflatex gle-manual.tex
+	latexmk -pdf gle-manual.tex
+
+#pdflatex gle-manual.tex
 
 # creates defs.tex
 defs.tex:
