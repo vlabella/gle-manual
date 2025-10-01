@@ -5,6 +5,7 @@
 version=$(gle -info | grep "GLE version" | awk -F: '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')
 # Extract Cairo support status and convert to 1 or 0
 cairo_raw=$(gle -info | grep "Cairo rendering support" | awk -F: '{print $2}' | xargs)
+echo $cairo_raw
 cairo=
 if [[ "$cairo_raw" == "Yes" ]]; then
   cairo=#1
