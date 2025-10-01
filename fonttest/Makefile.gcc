@@ -52,7 +52,7 @@ FONTS_EXTRA = \
 	plti.pdf pltr.pdf pshc.pdf pshcb.pdf pshcdo.pdf pshcbo.pdf
 
 ifeq ($(HAVE_EXTRA_FONTS),1)
-	FONTS=$(FONTS) $(FONTS_EXTRA)
+	FONTS := $(FONTS) $(FONTS_EXTRA)
 endif
 
 ifeq ($(RUNBUILD),1)

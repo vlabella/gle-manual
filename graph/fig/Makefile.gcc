@@ -36,6 +36,18 @@
 #                                                                      #
 ########################################################################
 
+ifeq ($(RUNBUILD),1)
+	GLE = ../../../build/bin/gle
+else
+	GLE = gle
+endif
+
+CAIRO := $( $(GLE) -info | grep "Cairo rendering support" | awk -F: '{print $2}' | xargs )
+ifeq ($(CAIRO),"Yes")
+	HAVE_CAIRO=1
+endif
+
+
 OPTS =
 
 EPSS = gc_axes.inc gc_axisall.inc gc_bargraph1.inc gc_bargraph2.inc gc_bargraph_3d.inc \
@@ -49,11 +61,7 @@ ifeq ($(HAVE_CAIRO),1)
 	OPTS := $(OPTS) -cairo
 endif
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
+
 
 all: $(EPSS)
 
