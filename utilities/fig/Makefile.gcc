@@ -47,12 +47,6 @@ ifneq ($(UNAME_S),Darwin)
 	EPSS := $(EPSS) volcano.inc gaussian.inc saddle-contour.inc
 endif
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(EPSS)
 
 %.pdf: %.gle

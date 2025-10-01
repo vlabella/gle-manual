@@ -38,12 +38,6 @@
 
 EPSS = tut_simple.inc tut_graph.inc tut_graph2.inc tut_graph3.inc
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(EPSS)
 
 %.inc: %.gle

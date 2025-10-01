@@ -36,18 +36,36 @@
 #                                                                      #
 ########################################################################
 
+ifeq ($(RUNBUILD),1)
+	# if gle is not installed but built locally
+	GLE = ../../../build/bin/gle
+else
+	GLE = gle
+endif
+
+HAVE_EXTRA_FONTS = 1
+HAVE_CAIRO       = 0
+
+CAIRO := $(shell $(GLE) -info | grep "Cairo rendering support" | awk -F: '{print $$2}' | xargs )
+#$(info CAIRO is "$(CAIRO)")
+ifeq ("$(CAIRO)","Yes")
+	HAVE_CAIRO = 1
+endif
+
+VARS:=GLE=$(GLE) HAVE_CAIRO=$(HAVE_CAIRO) HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
+
 all: fig fonts pdf defs.tex
 
 fig:
-	$(MAKE) -C title -f Makefile.gcc
-	$(MAKE) -C tutorial/fig -f Makefile.gcc
-	$(MAKE) -C primitives/fig -f Makefile.gcc
-	$(MAKE) -C graph/fig -f Makefile.gcc
-	$(MAKE) -C key/fig -f Makefile.gcc
-	$(MAKE) -C advanced/fig -f Makefile.gcc
-	$(MAKE) -C utilities/fig -f Makefile.gcc
-	$(MAKE) -C appendix/fig -f Makefile.gcc
-	$(MAKE) -C prog/fig -f Makefile.gcc
+	$(MAKE) -C title -f Makefile.gcc $(VARS)
+	$(MAKE) -C tutorial/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C primitives/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C graph/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C key/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C advanced/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C utilities/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C appendix/fig -f Makefile.gcc $(VARS)
+	$(MAKE) -C prog/fig -f Makefile.gcc $(VARS)
 
 pdf: defs.tex
 	latexmk -pdf gle-manual.tex
@@ -72,24 +90,21 @@ cfonts:
 
 clean:
 	rm -rf *.pdf *.idx *.aux *.dvi *.log *.out *.ilg *.ind *.toc defs.tex
-	$(MAKE) -C title -f Makefile.gcc clean
-	$(MAKE) -C tutorial/fig -f Makefile.gcc clean
-	$(MAKE) -C primitives/fig -f Makefile.gcc clean
-	$(MAKE) -C graph/fig -f Makefile.gcc clean
-	$(MAKE) -C key/fig -f Makefile.gcc	clean
-	$(MAKE) -C advanced/fig -f Makefile.gcc clean
-	$(MAKE) -C utilities/fig -f Makefile.gcc clean
-	$(MAKE) -C appendix/fig -f Makefile.gcc clean
-	$(MAKE) -C prog/fig -f Makefile.gcc clean
+	$(MAKE) -C title -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C tutorial/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C primitives/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C graph/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C key/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C advanced/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C utilities/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C appendix/fig -f Makefile.gcc clean $(VARS)
+	$(MAKE) -C prog/fig -f Makefile.gcc clean $(VARS)
+
+
 
 # PDFS = $(addsuffix .pdf, $(basename $(EPSS)))
-
 # %.pdf: %.eps
 # 	epstopdf $<
-
-
-
-
 # - deprecated
 #	glebtool -latexdef defs.tex hascairo $(HAVE_CAIRO)
 #	glebtool -latexversion defs.tex

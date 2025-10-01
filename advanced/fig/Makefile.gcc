@@ -38,12 +38,6 @@
 
 EPSS = gc_join.pdf gc_clip.pdf texgraph.inc join.pdf house.pdf
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(EPSS)
 
 %.inc: %.gle

@@ -1,6 +1,6 @@
 ########################################################################
 #                                                                      #
-# GLE - Graphics Layout Engine <http://glx.sourceforge.io/>          #
+# GLE - Graphics Layout Engine <http://glx.sourceforge.io/>            #
 #                                                                      #
 # Modified BSD License                                                 #
 #                                                                      #
@@ -39,12 +39,6 @@
 EPSS = ap_marker.pdf ap_fonts.pdf wall.pdf join.pdf single.pdf stack2.pdf \
        stack1.pdf stack4b.pdf loop.pdf clip.pdf color_sample.inc \
        color_list_svg.inc symbols.inc
-
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
 
 all: $(EPSS)
 

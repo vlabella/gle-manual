@@ -38,12 +38,6 @@
 
 EPSS = glelogo.pdf
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(EPSS)
 
 %.pdf: %.gle

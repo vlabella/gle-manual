@@ -38,12 +38,6 @@
 
 EPSS = axisformat.pdf
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(EPSS)
 
 %.inc: %.gle

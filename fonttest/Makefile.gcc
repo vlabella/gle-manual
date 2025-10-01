@@ -55,12 +55,6 @@ ifeq ($(HAVE_EXTRA_FONTS),1)
 	FONTS := $(FONTS) $(FONTS_EXTRA)
 endif
 
-ifeq ($(RUNBUILD),1)
-	GLE = ../../build/bin/gle
-else
-	GLE = gle
-endif
-
 all: $(FONTS)
 
 %.pdf: font-table.gle
