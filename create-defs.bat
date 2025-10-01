@@ -36,9 +36,9 @@ for /f "tokens=1,* delims=:" %%A in ('gle /info') do (
 
 :: Write to defs.tex
 (
-    echo "%"
-    echo "% defs.tex - automatically generated.  All changes will be lost."
-    echo "%"
+    echo %%
+    echo %% defs.tex - automatically generated.  All changes will be lost.
+    echo %%
     echo \newcommand{\gleversion}{%version%}
     echo \newcommand{\hascairo}[1]{%cairo%}
     echo \newcommand{\extrafonts}[1]{%extrafontflag%}

@@ -52,12 +52,12 @@ FONTS_EXTRA = \
 	plti.pdf pltr.pdf pshc.pdf pshcb.pdf pshcdo.pdf pshcbo.pdf
 
 !IF "$(HAVE_EXTRA_FONTS)" == "1"
-	FONTS=$(FONTS) $(FONTS_EXTRA)
+FONTS = $(FONTS) $(FONTS_EXTRA)
 !ENDIF
 
-!IF "$(GLE)" == ""
-	GLE = gle
-!endif
+!IF $(GLE) == ""
+GLE = gle
+!ENDIF
 
 .SUFFIXES: .gle .pdf
 
