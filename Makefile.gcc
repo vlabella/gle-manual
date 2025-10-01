@@ -83,10 +83,10 @@ index:
 	makeindex gle-manual
 
 fonts:
-	$(MAKE) -C fonttest -f Makefile.gcc
+	$(MAKE) -C fonttest -f Makefile.gcc $(VARS)
 
 cfonts:
-	$(MAKE) -C fonttest -f Makefile.gcc clean
+	$(MAKE) -C fonttest -f Makefile.gcc clean $(VARS)
 
 clean:
 	rm -rf *.pdf *.idx *.aux *.dvi *.log *.out *.ilg *.ind *.toc defs.tex

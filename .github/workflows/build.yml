@@ -55,9 +55,9 @@ jobs:
         run: |
          set -x
          touch ${{github.workspace}}/gle/configure.args
-         sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng \
+         sudo apt install ghostscript texlive texlive-latex-extra texlive-science dvipng latexmk \
          cmake freeglut3-dev libboost-dev libcairo-dev libdeflate-dev libgs-dev \
-         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev latexmk
+         libjpeg-turbo8-dev liblzma-dev libpixman-1-dev libpng-dev libtiff-dev libz-dev
 
       - name: Configure cmake
         working-directory: ${{github.workspace}}/gle
