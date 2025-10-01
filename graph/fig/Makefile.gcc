@@ -42,6 +42,10 @@ else
 	GLE = gle
 endif
 
+CAIRO := $(shell $(GLE) -info | grep "Cairo rendering support" | awk -F: '{print $2}' | xargs )
+$(info CAIRO is "$(CAIRO)")
+
+
 OPTS =
 
 EPSS = gc_axes.inc gc_axisall.inc gc_bargraph1.inc gc_bargraph2.inc gc_bargraph_3d.inc \
@@ -50,9 +54,8 @@ EPSS = gc_axes.inc gc_axisall.inc gc_bargraph1.inc gc_bargraph2.inc gc_bargraph_
        noisysine.inc age.inc normal.inc gridmode.inc y2axis-scale.inc discontinuity.inc \
        sqroot.inc cos2t.inc shadow.inc
 
-CAIRO := $(shell $(GLE) -info | grep "Cairo rendering support" | awk -F: '{print $2}' | xargs )
 
-ifeq ($(CAIRO),"Yes")
+ifeq ("$(CAIRO)","Yes")
 	EPSS := $(EPSS) semitrans.inc
 	OPTS := $(OPTS) -cairo
 endif
