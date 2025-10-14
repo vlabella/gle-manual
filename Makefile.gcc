@@ -54,7 +54,11 @@ endif
 
 VARS:=GLE=$(GLE) HAVE_CAIRO=$(HAVE_CAIRO) HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
 
-all: fig fonts pdf defs.tex
+all: defs fig fonts pdf
+
+# creates defs.tex
+defs:
+	./create-defs.sh
 
 fig:
 	$(MAKE) -C title -f Makefile.gcc $(VARS)
@@ -67,28 +71,24 @@ fig:
 	$(MAKE) -C appendix/fig -f Makefile.gcc $(VARS)
 	$(MAKE) -C prog/fig -f Makefile.gcc $(VARS)
 
-pdf: defs.tex
+pdf: defs fig fonts
 	latexmk -pdf gle-manual.tex
 
 #pdflatex gle-manual.tex
 
-# creates defs.tex
-defs.tex:
-	./create-defs.sh
-
-dvi:
+dvi: defs fig fonts
 	latex gle-manual.tex
 
-index:
+index: defs fig fonts
 	makeindex gle-manual
 
-fonts:
+fonts: defs
 	$(MAKE) -C fonttest -f Makefile.gcc $(VARS)
 
-cfonts:
+fonts-clean:
 	$(MAKE) -C fonttest -f Makefile.gcc clean $(VARS)
 
-clean:
+clean: fonts-clean
 	rm -rf *.pdf *.idx *.aux *.dvi *.log *.out *.ilg *.ind *.toc defs.tex
 	$(MAKE) -C title -f Makefile.gcc clean $(VARS)
 	$(MAKE) -C tutorial/fig -f Makefile.gcc clean $(VARS)

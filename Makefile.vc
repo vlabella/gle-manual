@@ -142,40 +142,35 @@ GLE              = "$(GLE_TOP)\bin\gle"
 GLE_CAIRO        = $(GLE) -cairo
 HAVE_CAIRO       = 1
 HAVE_EXTRA_FONTS = 1
-
-#GLEBTOOL         = $(GLE_ROOT)\glebtool
-
 # location where manual PDF is installed
-INSTALL_FOLDER	=$(GLE_TOP)\doc
+INSTALL_FOLDER	 = $(GLE_TOP)\doc
 
-all: $(GLE_FIGURES) defstex fonts pdf
+all: defs fig fonts pdf
+
+#creates defs.tex
+defs:
+	create-defs.bat
+
+fig: $(GLE_FIGURES)
+
+pdf: defs fig fonts
+	texify -p gle-manual.tex
+
+dvi: defs fig fonts
+	texify -q gle-manual.tex
+
+index: defs fig fonts
+	makeindex gle-manual
+
+fonts: defs
+	cd fonttest & nmake /nologo -f Makefile.vc GLE=\"$(GLE)\" HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
 
 install:
 	-mkdir $(INSTALL_FOLDER)
 	copy gle-manual.pdf $(INSTALL_FOLDER)
 
-pdf: defs.tex
-	texify -p gle-manual.tex
-
-dvi:
-	texify -q gle-manual.tex
-
-index:
-	makeindex gle-manual
-
-fonts:
-	cd fonttest & nmake /nologo -f Makefile.vc GLE=\"$(GLE)\" HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
-
 fonts-clean:
 	cd fonttest & nmake /nologo -f Makefile.vc clean GLE=\"$(GLE)\" HAVE_EXTRA_FONTS=$(HAVE_EXTRA_FONTS)
-
-#fonts:
-#	cd fonttest & perl winfonts.pl $(GLE)
-#	cd fonttest & $(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
-
-#fonts-clean:
-#	-erase /Q fonttest\extrafonts.tex
-#	cd fonttest & perl winfonts.pl $(GLE) clean
 
 clean: fonts-clean
 	-erase /Q *.pdf *.idx *.aux *.dvi *.log *.out *.ilg *.ind *.toc defs.tex
@@ -189,20 +184,6 @@ clean: fonts-clean
 	-rmdir /S /Q tutorial\fig\.gle
 	-rmdir /S /Q appendix\fig\.gle
 	-rmdir /S /Q advanced\fig\.gle
-
-figures: $(GLE_FIGURES)
-# PDFS = $(addsuffix .pdf, $(basename $(EPSS)))
-
-# %.pdf: %.eps
-# 	epstopdf $<
-
-#creates defs.tex and fontttest\extrafonts.tex
-defstex:
-	create-defs.bat
-
-# deprecated do not use glebtool - use scrip and gle
-#	$(GLEBTOOL) -latexdef defs.tex hascairo $(HAVE_CAIRO)
-#	$(GLEBTOOL) -latexversion defs.tex
 
 .SUFFIXES: .gle .pdf .inc
 
@@ -253,4 +234,23 @@ defstex:
 
 {prog\fig}.gle{prog\fig}.pdf:
 	$(GLE_CAIRO) -d pdf $<
+
+
+#fonts:
+#	cd fonttest & perl winfonts.pl $(GLE)
+#	cd fonttest & $(GLEBTOOL) -latexdef extrafonts.tex extrafonts $(HAVE_EXTRA_FONTS)
+
+#fonts-clean:
+#	-erase /Q fonttest\extrafonts.tex
+#	cd fonttest & perl winfonts.pl $(GLE) clean
+
+# deprecated do not use glebtool - use script and gle
+#GLEBTOOL         = $(GLE_ROOT)\glebtool
+#	$(GLEBTOOL) -latexdef defs.tex hascairo $(HAVE_CAIRO)
+#	$(GLEBTOOL) -latexversion defs.tex
+
+# PDFS = $(addsuffix .pdf, $(basename $(EPSS)))
+# %.pdf: %.eps
+# 	epstopdf $<
+
 
