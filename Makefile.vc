@@ -136,7 +136,7 @@ prog\fig\axisformat.pdf
 
 # set this to location of GLE when building manual if not installed in path
 !if "$(GLE_TOP)" == ""
-GLE_TOP=C:\Program Files\gle
+GLE_TOP=C:\Program Files\gle-graphics
 !endif
 GLE              = "$(GLE_TOP)\bin\gle"
 GLE_CAIRO        = $(GLE) -cairo
