@@ -86,6 +86,7 @@ commands are not explicitly mentioned in the following descriptions.
 {\sf let ds = hist dm [from {\it x1}] [to {\it x2}] [bins {\it n}] [step {\it n}]} \\
 {\sf let ds = \ldots [nsteps {\it n}]} \\
 {\sf let ds = \ldots [range {\it dn}]} \\
+{\sf let ds = \ldots [materialize]} \\
 {\sf math } \\
 {\sf nobox } \\
 {\sf scale {\it h v}} \\
@@ -563,7 +564,10 @@ E.g., {\sf tl}=topleft, {\sf br}=bottomright, etc.
 \item[{\sf let ds = {\it exp {\sf [from} low{\sf] [to} high{\sf] [step} exp{\sf] [where} exp{\sf]}}}]
 \index{let}
 \index{graphing functions}
-This command defines a new dataset as the result of an expression on the variable x over a range of values. For example:
+
+This command defines a new dataset as the result of an expression on the variable x over a range of values.
+
+For example:
 
 \begin{Verbatim}
      let d1 = sin(x)+log(x) from 1 to 100 step 1
@@ -571,7 +575,10 @@ This command defines a new dataset as the result of an expression on the variabl
 
 {\bf NOTE: The lack of spaces inside the expression are necessary.}
 
-Here are some further examples:
+By default, the dataset is evaluated and populated with data at the end of the graph block so that the axis ranges can be determined before the data are generated. Consequently, the individual dataset elements cannot be queried from within the graph block it was defined using the `ndata()', `dataxvalue()', and `datayvalue()' functions. These functions will not return the proper values until after until after the `end graph' command. To create and populate the dataset immediately within the graph block, see the `materialize' option below.
+
+Here are some more examples:
+
 
 \begin{minipage}[c]{8cm}
 \begin{Verbatim}
@@ -770,6 +777,21 @@ The `nsteps' options is an alternative to the `step' option of the `let' command
 \index{range}\index{let!range}
 
 Takes the x-values for this `let' expression from dataset `dn'. This is useful if you need to define a function for the same x-values as the ones you have in a given dataset.
+
+\item[{\sf let ds = \ldots [materialize]}]
+\index{materialize}\index{let!materialize}
+
+Immediately creates and populates the data series for this `let' expression rather than waiting until the end of the graph block. The `materialize' option requires both `from' and `to' to be specified. A materialized data series is not automatically regenerated or reset during axis autoranging, so its range is fixed when the `let' command is processed.
+
+For example:
+
+\begin{Verbatim}
+     let d1 = sin(x)+log(x) from 1 to 100 step 1
+     n = ndata(d1) ! returns 0
+     let d1 = sin(x)+log(x) from 1 to 100 step 1 materialize
+     n = ndata(d1) ! returns 100
+\end{Verbatim}
+
 
 \item[{\sf math}]
 Use this option to create a math mode graph, with the axis crossing at point $(0,0)$. Fig.~\ref{grmath:fig} shows an example. The corresponding GLE code is as follows:
