@@ -73,10 +73,6 @@ Function name     & Returns  \\ \hline
 {\tt pointy(pt)} \index{pointy()}    	& the y value of named point pt \\
 {\tt ptx(pt)} \index{ptx()}          	& the x value of named point pt (abbreviation for pointx) \\
 {\tt pty(pt)} \index{pty()}         	& the y value of named point pt (abbreviation for pointy)\\
-{\tt rgb(red,green,blue)} \index{rgb()}  & create color given RGB values \\
-{\tt rgba(red,green,blue,alpha)} \index{rgba()}  & create color given RGB and alpha values \\
-{\tt rgb255(red,green,blue)} \index{rgb255()}  & create color given RGB values \\
-{\tt rgba255(red,green,blue,alpha)} \index{rgba255()}  & create color given RGB and alpha values \\
 {\tt tdepth(str\$)} \index{tdepth()} 	& the depth of {\tt str\$} assuming current the font, size \\
 {\tt theight(str\$)} \index{theight()}  & the height of {\tt str\$} assuming  current font, size \\
 {\tt twidth(str\$)} \index{twidth()} 	& the width of {\tt str\$} assuming current font, size \\
@@ -88,6 +84,24 @@ Function name     & Returns  \\ \hline
 {\tt ypos()} \index{ypos()}          	& the current y point \\
 \end{supertabular}
 
+
+\subsection{Colors \& Color Space Conversions}
+\begin{supertabular}{l p{11cm}} \hline Function name & Returns \\
+\hline
+{\tt rgb(red,green,blue)} \index{rgb()} & create color given RGB values in the range 0 to 1 \\
+  {\tt rgba(red,green,blue,alpha)} \index{rgba()} & create color given RGB and alpha values in the range 0 to 1 \\
+  {\tt rgb255(red,green,blue)} \index{rgb255()} & create color given RGB values in the range 0 to 255 \\
+  {\tt rgba255(red,green,blue,alpha)} \index{rgba255()} & create color given RGB and alpha in the range 0 to 255 \\
+  {\tt hsv(hue,saturation,value)} \index{hsv()} & create color using HSV values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees\\
+  {\tt hsl(hue,saturation,lightness)} \index{hsl()} & create color using HSL values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees \\
+  {\tt cmyk(cyan,magenta,yellow,black)} \index{cmyk()} & create color given CMYK values in the range 0 to 1 \\
+  {\tt cvtgray($x$)} \index{cvtgray()} & create grayscale color, 0 = black and 1 = white \\
+  {\tt cvtrgb(red,green,blue)} \index{cvtrgb()} & same as rgb(red,green,blue) \\
+  {\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
+  {\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
+  \end{supertabular}
+
+  Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
 
 \subsection{String or Text Manipulation}
 
@@ -160,62 +174,82 @@ Operator & Meaning  \\ \hline
 
 \vspace{2ex}
 
-\begin{supertabular}{ll} \hline
-Function & Returns  \\ \hline
-{\tt abs($x$)} \index{abs()}         	& absolute value of $x$ \\
-{\tt acos($x$)} \index{acos()}       	& inverse cosine of $x$ \\
-{\tt acosh($x$)} \index{acosh()}     	& inverse hyperbolic cosine of $x$ \\
-{\tt acot($x$)} \index{acot()}       	& 1/atan($x$) \\
-{\tt acoth($x$)} \index{acoth()}     	& 1/atanh($x$) \\
-{\tt acsc($x$)} \index{acsc()}	     	& 1/asin($x$) \\
-{\tt acsch($x$)} \index{acsch()}     	& 1/asinh($x$) \\
-{\tt asec($x$)} \index{asec()}       	& 1/acos($x$) \\
-{\tt asech($x$)} \index{asech()}     	& 1/acosh($x$) \\
-{\tt asin($x$)} \index{asin()}       	& inverse sine of $x$ \\
-{\tt asinh($x$)} \index{asinh()}     	& inverse hyperbolic sine of $x$\\
-{\tt atan($x$)} \index{atan()}       	& inverse tangent of $x$ \\
-{\tt atanh($x$)} \index{atanh()}     	& inverse hyperbolic tangent of $x$ \\
-{\tt atn($x$)} \index{atn()}         	& same as atan($x$) ({\it deprecated, kept for backward compatibility} ) \\
-{\tt cos($x$)} \index{cos()}         	& cosine of $x$ \\
-{\tt cosh($x$)} \index{cosh()}       	& hyperbolic cosine of $x$ \\
-{\tt cot($x$)} \index{cot()}         	& 1/tan($x$) \\
-{\tt coth($x$)} \index{coth()}       	& 1/tanh($x$) \\
-{\tt csc($x$)} \index{csc()}            & 1/sin($x$) \\
-{\tt csch($x$)} \index{csch()}       	& 1/sinh($x$) \\
-{\tt erf($x$)} \index{eval()}         	& Gaussian error function of $x$ \\
-{\tt exp($x$)} \index{exp()}         	& $e^x$  \\
-{\tt fix($x$)} \index{fix()}         	& $x$ rounded towards 0 \\
-{\tt int($x$)} \index{int()}         	& integer part of $x$ \\
-{\tt log($x$)} \index{log()}         	& log to base $e$ of $x$ \\
-{\tt log10($x$)} \index{log10()}     	& log to base 10 of $x$ \\
-{\tt max($x$,$y$)} \index{max()}        & the maximum value of $x$ or $y$ \\
-{\tt min($x$,$y$)} \index{min()}        & the minimum value of $x$ or $y$ \\
-{\tt rnd($x$)} \index{rnd()}         	& random number between 0 and $x$ \\
-{\tt sdiv(x,y)} \index{sdvi()}	     	& return x/y or 0 if y = 0 \\
-{\tt sec($x$)} \index{sec()}	     	& 1/cos($x$) \\
-{\tt sech($x$)} \index{sech()}       	& 1/cosh($x$) \\
-{\tt sgn($x$)} \index{sgn()}         	& returns 1 if $x$ is positive, -1 if $x$ is negative \\
-{\tt sin($x$)} \index{sin()}         	& sine of $x$ \\
-{\tt sinh($x$)} \index{sinh()}       	& hyperbolic sine of $x$ \\
-{\tt sqr($x$)} \index{sqr()}         	& $x$ squared  \\
-{\tt sqrt($x$)} \index{sqrt()}       	& square root of $x$ \\
-{\tt tan($x$)} \index{tan()}         	& tangent of $x$ \\	
-{\tt tanh($x$)} \index{tanh()}       	& hyperbolic tangent of $x$ \\
-{\tt todeg($x$)} \index{todeg()}     	& convert from radians to degrees \\
-{\tt torad($x$)} \index{torad()}     	& convert from degrees to radians \\
-{\tt associated\_laguerre($n$,$x$)} \index{associated\_laguerre()}   & $n^{th}$ order associated Laguerre polynomial of $x$   \\
-{\tt spherical\_harmonic($n$,$m$,$\theta$,$\phi$)} \index{spherical\_harmonic()}       & real valued spherical harmonic, $\theta$ polar angle $[0,\pi]$, $\phi$ azimuthal angle $[0,2\pi]$. \\
-{\tt factorial($n$)} \index{factorial()}     	           & $n!$ \\
-{\tt double\_factorial($n$)} \index{double\_factorial()}      & $n!!$  \\
-{\tt hermite($n$,x)} \index{hermite()}     	               & $n^{th}$ order Hermite polynomial of $x$ \\
-{\tt associated\_legendre($\ell$,$x$)} \index{associated\_legendre()}     & $\ell^{th}$-order associated Legendre polynomial of $x$ \\
-{\tt bessel\_first($v$,$x$)} \index{bessel\_first()}     	   & Bessel function of the first kind \\
-{\tt bessel\_second($v$,$x$)} \index{bessel\_second()}        & Bessel function of the second kind \\
-{\tt airy\_first($x$)} \index{airy\_first()}     	           & Airy function of the first kind \\
-{\tt airy\_second($x$)} \index{airy\_second()}     	       & Airy function of the second kind \\
-{\tt chebyshev\_first($n$,$x$)} \index{chebyshev\_first()}      & $n^{th}$ order Chebyshev polynomial of the first kind of $x$  \\
-{\tt chebyshev\_second($n$,$x$)} \index{chebyshev\_second()}    & $n^{th}$ order Chebyshev polynomial of the second kind of $x$  \\
+\begin{supertabular}{ll}
+\hline Function & Returns \\
+ \hline
+  {\tt abs($x$)} \index{abs()} & absolute value of $x$ \\
+  {\tt acos($x$)} \index{acos()} & inverse cosine of $x$ \\
+  {\tt acosh($x$)} \index{acosh()} & inverse hyperbolic cosine of $x$ \\
+  {\tt acot($x$)} \index{acot()} & 1/atan($x$) \\
+  {\tt acoth($x$)} \index{acoth()} & 1/atanh($x$) \\
+  {\tt acsc($x$)} \index{acsc()} & 1/asin($x$) \\
+  {\tt acsch($x$)} \index{acsch()} & 1/asinh($x$) \\
+  {\tt asec($x$)} \index{asec()} & 1/acos($x$) \\
+  {\tt asech($x$)} \index{asech()} & 1/acosh($x$) \\
+  {\tt asin($x$)} \index{asin()} & inverse sine of $x$ \\
+  {\tt asinh($x$)} \index{asinh()} & inverse hyperbolic sine of $x$ \\
+  {\tt atan($x$)} \index{atan()} & inverse tangent of $x$ \\
+  {\tt atanh($x$)} \index{atanh()} & inverse hyperbolic tangent of $x$ \\
+  {\tt atn($x$)} \index{atn()} & same as atan($x$) ({\it deprecated, kept for backward compatibility}) \\
+  {\tt cbrt($x$)} \index{cbrt()} & cube root of $x$ \\
+  {\tt ceil($x$)} \index{ceil()} & smallest integer greater than or equal to $x$ \\
+  {\tt cos($x$)} \index{cos()} & cosine of $x$ \\
+  {\tt cosh($x$)} \index{cosh()} & hyperbolic cosine of $x$ \\
+  {\tt cot($x$)} \index{cot()} & 1/tan($x$) \\
+  {\tt coth($x$)} \index{coth()} & 1/tanh($x$) \\
+  {\tt csc($x$)} \index{csc()} & 1/sin($x$) \\
+  {\tt csch($x$)} \index{csch()} & 1/sinh($x$) \\
+  {\tt erf($x$)} \index{erf()} & Gaussian error function of $x$ \\
+  {\tt erfc($x$)} \index{erfc()} & complementary Gaussian error function of $x$ \\
+  {\tt exp($x$)} \index{exp()} & $e^x$ \\
+  {\tt expm1($x$)} \index{expm1()} & $e^x-1$, computed accurately for $x$ near zero \\
+  {\tt fix($x$)} \index{fix()} & $x$ rounded towards 0 \\
+  {\tt floor($x$)} \index{floor()} & largest integer less than or equal to $x$ \\
+  {\tt gamma($x$)} \index{gamma()} & Gamma function $\Gamma(x)$ \\
+  {\tt hypot($x$,$y$)} \index{hypot()} & $\sqrt{x^2+y^2}$, computed to avoid undue overflow and underflow \\
+  {\tt int($x$)} \index{int()} & integer part of $x$ \\
+  {\tt log($x$)} \index{log()} & log to base $e$ of $x$ \\
+  {\tt log10($x$)} \index{log10()} & log to base 10 of $x$ \\
+  {\tt log1p($x$)} \index{log1p()} & $\log(1+x)$, computed accurately for $x$ near zero \\
+  {\tt log\_gamma($x$)} \index{log\_gamma()} & natural logarithm of the absolute value of $\Gamma(x)$ \\
+  {\tt max($x$,$y$)} \index{max()} & the maximum value of $x$ or $y$ \\
+  {\tt min($x$,$y$)} \index{min()} & the minimum value of $x$ or $y$ \\
+  {\tt random($x$)} \index{random()} & random number between 0 and $x$ \\
+  {\tt rnd($x$)} \index{rnd()} & same as random($x$) ({\it retained for backward compatibility}) \\
+  {\tt round($x$)} \index{round()} & $x$ rounded to the nearest integer, halfway cases away from zero \\
+  {\tt sdiv($x$,$y$)} \index{sdiv()} & return $x/y$ or 0 if $y=0$ \\
+  {\tt sec($x$)} \index{sec()} & 1/cos($x$) \\
+  {\tt sech($x$)} \index{sech()} & 1/cosh($x$) \\
+  {\tt sgn($x$)} \index{sgn()} & returns 1 if $x$ is positive, -1 if $x$ is negative \\
+  {\tt sin($x$)} \index{sin()} & sine of $x$ \\
+  {\tt sinc($x$)} \index{sinc()} & sinus cardinal function, $\sin(x)/x$, with sinc(0) = 1 \\
+  {\tt sinh($x$)} \index{sinh()} & hyperbolic sine of $x$ \\
+  {\tt sqr($x$)} \index{sqr()} & $x$ squared \\
+  {\tt sqrt($x$)} \index{sqrt()} & square root of $x$ \\
+  {\tt tan($x$)} \index{tan()} & tangent of $x$ \\
+  {\tt tanh($x$)} \index{tanh()} & hyperbolic tangent of $x$ \\
+  {\tt todeg($x$)} \index{todeg()} & convert from radians to degrees \\
+  {\tt torad($x$)} \index{torad()} & convert from degrees to radians \\
+  {\tt airy\_first($x$)} \index{airy\_first()} & Airy function of the first kind \\
+  {\tt airy\_second($x$)} \index{airy\_second()} & Airy function of the second kind \\
+  {\tt associated\_laguerre($n$,$x$)} \index{associated\_laguerre()} & $n^{th}$ order associated Laguerre polynomial of $x$ \\
+  {\tt associated\_legendre($\ell$,$x$)} \index{associated\_legendre()} & $\ell^{th}$-order associated Legendre polynomial of $x$ \\
+  {\tt bessel\_first($v$,$x$)} \index{bessel\_first()} & Bessel function of the first kind $J_v(x)$ \\
+  {\tt bessel\_modified\_first($v$,$x$)} \index{bessel\_modified\_first()} & modified Bessel function of the first kind $I_v(x)$ \\
+  {\tt bessel\_modified\_second($v$,$x$)} \index{bessel\_modified\_second()} & modified Bessel function of the second kind $K_v(x)$ \\
+  {\tt bessel\_second($v$,$x$)} \index{bessel\_second()} & Bessel function of the second kind $Y_v(x)$ \\
+  {\tt chebyshev\_first($n$,$x$)} \index{chebyshev\_first()} & $n^{th}$ order Chebyshev polynomial of the first kind of $x$ \\
+  {\tt chebyshev\_second($n$,$x$)} \index{chebyshev\_second()} & $n^{th}$ order Chebyshev polynomial of the second kind of $x$ \\
+  {\tt double\_factorial($n$)} \index{double\_factorial()} & $n!!$ \\
+  {\tt factorial($n$)} \index{factorial()} & $n!$ \\
+  {\tt hermite($n$,$x$)} \index{hermite()} & $n^{th}$ order Hermite polynomial of $x$ \\
+  {\tt sph\_bessel($n$,$x$)} \index{sph\_bessel()} & same as spherical\_bessel\_first($n$,$x$) \\
+  {\tt sph\_neumann($n$,$x$)} \index{sph\_neumann()} & same as spherical\_bessel\_second($n$,$x$) \\
+  {\tt spherical\_bessel\_first($n$,$x$)} \index{spherical\_bessel\_first()} & spherical Bessel function of the first kind $j_n(x)$ \\
+  {\tt spherical\_bessel\_second($n$,$x$)} \index{spherical\_bessel\_second()} & spherical Bessel function of the second kind $y_n(x)$ \\
+  {\tt spherical\_harmonic($n$,$m$,$\theta$,$\phi$)} \index{spherical\_harmonic()} & real valued spherical harmonic, $\theta$ polar angle $[0,\pi]$, $\phi$ azimuthal angle $[0,2\pi]$ \\
 \end{supertabular}
+
 
 
 \subsection{Graphing}
