@@ -99,6 +99,7 @@ Function name     & Returns  \\ \hline
   {\tt cvtrgb(red,green,blue)} \index{cvtrgb()} & same as rgb(red,green,blue) \\
   {\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
   {\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
+  {\tt color\_intensity(color)} \index{color_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
   \end{supertabular}
 
   Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
@@ -193,6 +194,7 @@ Operator & Meaning  \\ \hline
   {\tt atn($x$)} \index{atn()} & same as atan($x$) ({\it deprecated, kept for backward compatibility}) \\
   {\tt cbrt($x$)} \index{cbrt()} & cube root of $x$ \\
   {\tt ceil($x$)} \index{ceil()} & smallest integer greater than or equal to $x$ \\
+  {\tt clamp(value,min,max)} \index{clamp()} & return value constrained to the range min to max. An error is   generated if min is greater than max \\
   {\tt cos($x$)} \index{cos()} & cosine of $x$ \\
   {\tt cosh($x$)} \index{cosh()} & hyperbolic cosine of $x$ \\
   {\tt cot($x$)} \index{cot()} & 1/tan($x$) \\
@@ -208,6 +210,9 @@ Operator & Meaning  \\ \hline
   {\tt gamma($x$)} \index{gamma()} & Gamma function $\Gamma(x)$ \\
   {\tt hypot($x$,$y$)} \index{hypot()} & $\sqrt{x^2+y^2}$, computed to avoid undue overflow and underflow \\
   {\tt int($x$)} \index{int()} & integer part of $x$ \\
+  {\tt is\_close(a,b,rel\_tol)} \index{is_close()} & return true if a and b are equal within the relative tolerance rel\_tol, where the comparison is $|a-b| \leq {\tt rel\_tol}\max(|a|,|b|)$ \\
+  {\tt is\_close\_abs(a,b,abs\_tol)} \index{is_close_abs()} & return true if a and b are equal within the absolute tolerance abs\_tol, where the comparison is $|a-b| \leq {\tt abs\_tol}$ \\
+  {\tt lerp(a,b,t)} \index{lerp()} & return the linear interpolation between $a$ and $b$ at $t$, calculated as $a+t(b-a)$. Values of $t$ outside the range 0 to 1 perform linear extrapolation \\
   {\tt log($x$)} \index{log()} & log to base $e$ of $x$ \\
   {\tt log10($x$)} \index{log10()} & log to base 10 of $x$ \\
   {\tt log1p($x$)} \index{log1p()} & $\log(1+x)$, computed accurately for $x$ near zero \\
@@ -215,6 +220,7 @@ Operator & Meaning  \\ \hline
   {\tt max($x$,$y$)} \index{max()} & the maximum value of $x$ or $y$ \\
   {\tt min($x$,$y$)} \index{min()} & the minimum value of $x$ or $y$ \\
   {\tt random($x$)} \index{random()} & random number between 0 and $x$ \\
+  {\tt remap(value,in\_min,in\_max,out\_min,out\_max)} \index{remap()} & map value from the input range in\_min to in\_max onto the output range out\_min to out\_max. Values outside the input range are extrapolated, and reversed ranges are supported. An error is generated if in\_min equals in\_max \\
   {\tt rnd($x$)} \index{rnd()} & same as random($x$) ({\it retained for backward compatibility}) \\
   {\tt round($x$)} \index{round()} & $x$ rounded to the nearest integer, halfway cases away from zero \\
   {\tt sdiv($x$,$y$)} \index{sdiv()} & return $x/y$ or 0 if $y=0$ \\
