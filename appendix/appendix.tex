@@ -99,7 +99,7 @@ Function name     & Returns  \\ \hline
   {\tt cvtrgb(red,green,blue)} \index{cvtrgb()} & same as rgb(red,green,blue) \\
   {\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
   {\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
-  {\tt color\_intensity(color)} \index{color_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
+  {\tt color\_intensity(color)} \index{color\_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
   \end{supertabular}
 
   Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
@@ -210,8 +210,8 @@ Operator & Meaning  \\ \hline
   {\tt gamma($x$)} \index{gamma()} & Gamma function $\Gamma(x)$ \\
   {\tt hypot($x$,$y$)} \index{hypot()} & $\sqrt{x^2+y^2}$, computed to avoid undue overflow and underflow \\
   {\tt int($x$)} \index{int()} & integer part of $x$ \\
-  {\tt is\_close(a,b,rel\_tol)} \index{is_close()} & return true if a and b are equal within the relative tolerance rel\_tol, where the comparison is $|a-b| \leq {\tt rel\_tol}\max(|a|,|b|)$ \\
-  {\tt is\_close\_abs(a,b,abs\_tol)} \index{is_close_abs()} & return true if a and b are equal within the absolute tolerance abs\_tol, where the comparison is $|a-b| \leq {\tt abs\_tol}$ \\
+  {\tt is\_close(a,b,rel\_tol)} \index{is\_close()} & return true if a and b are equal within the relative tolerance rel\_tol, where the comparison is $|a-b| \leq {\tt rel\_tol}\max(|a|,|b|)$ \\
+  {\tt is\_close\_abs(a,b,abs\_tol)} \index{is\_close\_abs()} & return true if a and b are equal within the absolute tolerance abs\_tol, where the comparison is $|a-b| \leq {\tt abs\_tol}$ \\
   {\tt lerp(a,b,t)} \index{lerp()} & return the linear interpolation between $a$ and $b$ at $t$, calculated as $a+t(b-a)$. Values of $t$ outside the range 0 to 1 perform linear extrapolation \\
   {\tt log($x$)} \index{log()} & log to base $e$ of $x$ \\
   {\tt log10($x$)} \index{log10()} & log to base 10 of $x$ \\
