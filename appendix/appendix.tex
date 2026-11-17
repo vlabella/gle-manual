@@ -220,7 +220,7 @@ Operator & Meaning  \\ \hline
   {\tt max($x$,$y$)} \index{max()} & the maximum value of $x$ or $y$ \\
   {\tt min($x$,$y$)} \index{min()} & the minimum value of $x$ or $y$ \\
   {\tt random($x$)} \index{random()} & random number between 0 and $x$ \\
-  {\tt remap(value,in\_min,in\_max,out\_min,out\_max)} \index{remap()} & map value from the input range in\_min to in\_max onto the output range out\_min to out\_max. Values outside the input range are extrapolated, and reversed ranges are supported. An error is generated if in\_min equals in\_max \\
+  {\tt linear\_interpolate($x$,$x_1$,$x_2$,$y_1$,$y_2$)} \index{linear\_interpolate()} & Interpolates the value $x$ from the input range $x_1$ to $x_2$ onto the output range $y_1$ to $y_2$. Values outside the input range are extrapolated, and reversed ranges are supported. An error is generated if $x_1$ equals $x_2$. \\
   {\tt rnd($x$)} \index{rnd()} & same as random($x$) ({\it retained for backward compatibility}) \\
   {\tt round($x$)} \index{round()} & $x$ rounded to the nearest integer, halfway cases away from zero \\
   {\tt sdiv($x$,$y$)} \index{sdiv()} & return $x/y$ or 0 if $y=0$ \\
