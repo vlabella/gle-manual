@@ -86,23 +86,23 @@ Function name     & Returns  \\ \hline
 
 
 \subsection{Colors \& Color Space Conversions}
-\begin{supertabular}{l p{11cm}} \hline Function name & Returns \\
+\begin{supertabular}{l p{10cm}} \hline Function name & Returns \\
 \hline
 {\tt rgb(red,green,blue)} \index{rgb()} & create color given RGB values in the range 0 to 1 \\
-  {\tt rgba(red,green,blue,alpha)} \index{rgba()} & create color given RGB and alpha values in the range 0 to 1 \\
-  {\tt rgb255(red,green,blue)} \index{rgb255()} & create color given RGB values in the range 0 to 255 \\
-  {\tt rgba255(red,green,blue,alpha)} \index{rgba255()} & create color given RGB and alpha in the range 0 to 255 \\
-  {\tt hsv(hue,saturation,value)} \index{hsv()} & create color using HSV values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees\\
-  {\tt hsl(hue,saturation,lightness)} \index{hsl()} & create color using HSL values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees \\
-  {\tt cmyk(cyan,magenta,yellow,black)} \index{cmyk()} & create color given CMYK values in the range 0 to 1 \\
-  {\tt cvtgray($x$)} \index{cvtgray()} & create grayscale color, 0 = black and 1 = white \\
-  {\tt cvtrgb(red,green,blue)} \index{cvtrgb()} & same as rgb(red,green,blue) \\
-  {\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
-  {\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
-  {\tt color\_intensity(color)} \index{color\_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
-  \end{supertabular}
+{\tt rgba(red,green,blue,alpha)} \index{rgba()} & create color given RGB and alpha values in the range 0 to 1 \\
+{\tt rgb255(red,green,blue)} \index{rgb255()} & create color given RGB values in the range 0 to 255 \\
+{\tt rgba255(red,green,blue,alpha)} \index{rgba255()} & create color given RGB and alpha in the range 0 to 255 \\
+{\tt hsv(hue,saturation,value)} \index{hsv()} & create color using HSV values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees\\
+{\tt hsl(hue,saturation,lightness)} \index{hsl()} & create color using HSL values in the range 0 to 1, except for hue which ranges from 0 to 360 degrees \\
+{\tt cmyk(cyan,magenta,yellow,black)} \index{cmyk()} & create color given CMYK values in the range 0 to 1 \\
+{\tt cvtgray($x$)} \index{cvtgray()} & create grayscale color, 0 = black and 1 = white \\
+{\tt cvtrgb(red,green,blue)} \index{cvtrgb()} & same as rgb(red,green,blue) \\
+{\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
+{\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
+{\tt color\_intensity(color)} \index{color\_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
+\end{supertabular}
 
-  Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
+Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
 
 \subsection{String or Text Manipulation}
 
@@ -120,7 +120,6 @@ Function Name     & Returns  \\ \hline
 \end{supertabular}
 
 \subsection{Logical Operators}
-
 
 \begin{tabular}{ll} \hline
 Operator & Meaning  \\ \hline
@@ -162,16 +161,51 @@ Operator & Meaning  \\ \hline
 
 \input{appendix/constants.tex}
 
-%\begin{tabular}{ll} \hline
-%Numerical Constants & Value  \\ \hline
-%{\tt pi} \index{pi}      & $\pi = 3.14159265358979323846 $ \\
-%{\tt two\_pi} \index{two\_pi}  & $2\pi $ \\
-%{\tt root\_pi} \index{root\_pi} & $\sqrt{\pi}$ \\
-%{\tt half\_pi} \index{half\_pi}  & $\pi/2$ \\
-%{\tt root\_two} \index{root\_two}  & $\sqrt{2}$ \\
-%{\tt root\_three} \index{root\_three}  & $\sqrt{3}$ \\
-%{\tt \_e\_} \index{\_e\_}     & $e^1$ \\
-%\end{tabular}
+\subsection{CODATA Physical Constants} \index{CODATA} \index{physical constants}
+
+GLE provides access to the physical constants in the CODATA database through the functions \texttt{codata()}, \texttt{codata\_units()}, and \texttt{codata\_uncertainty()}. The constants are identified by their CODATA names.
+
+\begin{verbatim}
+codata(name$) codata_units(name$) codata_uncertainty(name$)
+\end{verbatim}
+\begin{description}
+\item[\texttt{codata(name\$)}] Returns the numerical value of the physical constant specified by \texttt{name\$}.
+\item[\texttt{codata\_units(name\$)}] Returns a string containing the units of the physical constant specified by \texttt{name\$}.
+\item[\texttt{codata\_uncertainty(name\$)}] Returns the standard uncertainty of the physical constant specified by \texttt{name\$}.
+\end{description}
+
+For example:
+\begin{verbatim}
+c = codata("speed of light in vacuum")
+u$ = codata_units("speed of light in vacuum")
+print c u$
+\end{verbatim}
+
+prints the value of the speed of light and its corresponding units:
+
+\begin{verbatim}
+299792458 m s^-1
+\end{verbatim}
+
+The uncertainty of a constant can be obtained similarly:
+
+\begin{verbatim}
+m = codata("electron mass")
+mu = codata_uncertainty("electron mass")
+print m mu
+\end{verbatim}
+
+The names used by these functions correspond to the names in the CODATA physical constants database. Consult SciPy docuementation for list of allconstants. For example:
+
+\begin{verbatim}
+ codata("Planck constant")
+ codata("electron mass")
+ codata("proton mass")
+ codata("Boltzmann constant")
+ codata("speed of light in vacuum")
+\end{verbatim}
+
+The CODATA data are incorporated into GLE when the source code is generated. GLE therefore does not require SciPy or any external CODATA database at runtime. The existing \texttt{PC\_} constants provide convenient names for a selected set of commonly used physical constants. The \texttt{codata()} functions provide access to the complete CODATA physical constants database, including the associated units and uncertainties.
 
 \vspace{2ex}
 
