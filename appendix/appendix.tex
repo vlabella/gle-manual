@@ -50,27 +50,26 @@ GLE has the following built in functions and variables in the following categori
 
 \subsection{General Program}
 
-\begin{supertabular}{ll} \hline
+\begin{supertabular}{lp{10cm}} \hline
 Function name     & Returns  \\ \hline
 {\tt arg(i)} \index{arg()}       	    & i-th command line argument \\
 {\tt arg\$(i)} \index{arg()}            & i-th command line argument \\
-{\tt dataxvalue(ds,i)} \index{dataxvalue} & $x$-value of $i$-th point in ds (p.~\pageref{dataxvalue})\\
-{\tt datayvalue(ds,i)} \index{datayvalue} & $y$-value of $i$-th point in ds (p.~\pageref{datayvalue})\\
 {\tt date\$()} \index{date\$()}      	& current date e.g. ``Tue Apr 09 1991'' \\
 {\tt device\$()} \index{device\$()}  	& available devices e.g. ``HARDCOPY, PS''\\
-{\tt getenv(str)} \index{getenv{}}      & returns environment variable ``str''\\
 {\tt eval(str)} \index{eval()}         	& evaluates given GLE expression \\
+{\tt exit [status]} \index{exit} & Terminates execution of the GLE script. The optional {\tt status} is an integer exit status returned by GLE to the operating system. If no status is specified, an exit status of zero is returned. \\
 {\tt $\backslash{}$expr(exp)} \index{$\backslash{}$expr(exp)} & substitute result of evaluating ``exp'' \\
 {\tt file\$()} \index{file\$()}         & returns GLE file name (without extension) \\
+{\tt getenv(str)} \index{getenv{}}      & returns environment variable ``str''\\
 {\tt height(name\$)} \index{height()} 	& the height of the object {\tt name\$} \\
 {\tt nargs()} \index{nargs()}       	& number of command line arguments \\
-{\tt ndata(ds)} \index{ndata}           & number of points in data set ds (p.~\pageref{ndata})\\
-{\tt ndatasets()} \index{ndatasets}     & number of available data sets\\
 {\tt pageheight()} \index{pageheight()} & the height of the page (from size command) \\
 {\tt pagewidth()} \index{pagewidth()}	& the width of the page (from size command) \\
 {\tt path\$()} \index{path\$()}         & returns the directory where the script is located \\
 {\tt pointx(pt)} \index{pointx()}    	& the x value of named point pt \\
 {\tt pointy(pt)} \index{pointy()}    	& the y value of named point pt \\
+{\tt print expression...} \index{print} & Evaluates and prints one or more expressions to the console. Multiple expressions may be supplied on the same statement and are printed in order. \\
+{\tt print\_color color expression...} \index{print\_color} & Prints one or more expressions to the console using the specified GLE color. The color is interpreted using GLE's normal color syntax and predefined color names. When console-color support is disabled at compile time, the command prints the text without ANSI color codes. \\
 {\tt ptx(pt)} \index{ptx()}          	& the x value of named point pt (abbreviation for pointx) \\
 {\tt pty(pt)} \index{pty()}         	& the y value of named point pt (abbreviation for pointy)\\
 {\tt tdepth(str\$)} \index{tdepth()} 	& the depth of {\tt str\$} assuming current the font, size \\
@@ -86,7 +85,9 @@ Function name     & Returns  \\ \hline
 
 
 \subsection{Colors \& Color Space Conversions}
-\begin{supertabular}{l p{10cm}} \hline Function name & Returns \\
+
+\begin{supertabular}{l p{10cm}}
+\hline Function name & Returns \\
 \hline
 {\tt rgb(red,green,blue)} \index{rgb()} & create color given RGB values in the range 0 to 1 \\
 {\tt rgba(red,green,blue,alpha)} \index{rgba()} & create color given RGB and alpha values in the range 0 to 1 \\
@@ -100,7 +101,9 @@ Function name     & Returns  \\ \hline
 {\tt cvtcolor(name)} \index{cvtcolor()} & convert a color name to its color value \\
 {\tt colorscale(value,scale\$)} \index{colorscale()} & create color from a named color scale, where value ranges from 0 to 1 The supported color scales are {\tt GRAY}, {\tt GREY}, {\tt RED}, {\tt GREEN}, {\tt BLUE}, {\tt CYAN}, {\tt MAGENTA}, {\tt YELLOW}, {\tt VERDIGRIS}, {\tt THERMAL}, {\tt COOL}, {\tt RAINBOW}, {\tt VIRIDIS}, {\tt PLASMA}, {\tt INFERNO}, {\tt MAGMA}, {\tt BLUE\_WHITE\_RED}, and {\tt RED\_WHITE\_BLUE}. Values below 0 or above 1 are clamped to the color scale endpoints. \\
 {\tt color\_intensity(color)} \index{color\_intensity()} & return the perceived intensity of a color on a scale from 0 to 255, calculated as $255(0.299R + 0.587G + 0.114B)$, where $R$, $G$, and $B$ are the normalized red, green, and blue components of the color \\
-\end{supertabular}
+\end{supertabular}\\
+\vspace{2ex}
+
 
 Note: RGB, RGBA, HSV, HSL, and CMYK color components are normalized to the range 0 to 1, except for hue, which is specified in degrees from 0 to 360, and RGB255/RGBA255 components, which range from 0 to 255.
 
@@ -119,10 +122,55 @@ Function Name     & Returns  \\ \hline
 {\tt format\$(exp,format)} \index{format\$()} & format {\tt exp} as specified in {\tt format} (p.~\pageref{formatnum:pg})\\
 \end{supertabular}
 
+
+\subsection{Data Series} \label{sec:dataseries}
+
+GLE provides functions for querying, copying, manipulating, and analyzing data series in a graph block. Data-series operations do not modify their input data series. Instead, functions that operate on an entire data series return a new, materialized data series. Consequently, data-series operations may be nested and chained. Input data series must be materialized before they can be used by these functions. Functions that return a data series are used on the right-hand side of a {\tt let} statement inside a graph block. The returned data series is materialized immediately; the {\tt materialize} option to {\tt let} is therefore not required. For example:
+
+\begin{verbatim}
+begin graph
+    ...
+    data "data.dat" d1=c1,c2
+    let d2 = smooth(d1,5)
+    let d3 = normalize(d2)
+    let d4 = derivative(d3)
+    ! let generated data series must use maerialize
+    let d10 = sin(x) from 0 to 10*pi nsteps 1000 MATERIALIZE
+    d11 = derivative(d10)
+    ...
+end graph
+\end{verbatim}
+
+Data-series operations may also be nested:
+
+\begin{verbatim}
+    let d2 = normalize(smooth(d1,5))
+\end{verbatim}
+
+The following functions are available:
+
+\begin{supertabular}{lp{10cm}}
+\hline Function Name & Returns \\
+\hline {\tt ndata(ds\$)} \index{ndata()} & The number of data points in the data series named by {\tt ds\$}. Returns zero if the data series does not exist. \\
+{\tt dataxvalue(ds\$,i)} \index{dataxvalue()} & The x-coordinate of point {\tt i} in the data series named by {\tt ds\$}. Data-point indices start at 1. An error is generated if {\tt i} is outside the range 1 through {\tt ndata(ds\$)}. \\
+{\tt datayvalue(ds\$,i)} \index{datayvalue()} & The y-coordinate of point {\tt i} in the data series named by {\tt ds\$}. Data-point indices start at 1. An error is generated if {\tt i} is outside the range 1 through {\tt ndata(ds\$)}. \\
+{\tt copy(ds)} \index{copy()} & A new data series containing a copy of {\tt ds}. The returned data series is independent of the source data series. \\
+{\tt smooth(ds,n)} \index{smooth()} & A new data series in which the y-values of {\tt ds} are replaced by moving averages over a window of {\tt n} points. The x-values are preserved. {\tt n} must be a positive integer. The smoothing window is shortened at the ends of the data series and at gaps in the data. The source data series is unchanged. \\
+{\tt normalize(ds)} \index{normalize()} & A new data series whose valid y-values are linearly normalized to the range 0 to 1. The minimum y-value is mapped to 0 and the maximum y-value is mapped to 1. If all valid y-values are equal, they are mapped to zero. The x-values and point ordering are preserved. \\
+{\tt clip(ds,ymin,ymax)} \index{clip()} & A new data series whose y-values are restricted to the interval $[y_{\rm min},y_{\rm max}]$. Values below {\tt ymin} are replaced by {\tt ymin}, and values above {\tt ymax} are replaced by {\tt ymax}. The x-values and number of data points are unchanged. \\
+{\tt slice(ds,first,last)} \index{slice()} & A new data series containing points {\tt first} through {\tt last} of {\tt ds}, inclusive. GLE data-series indices start at 1, so {\tt slice(ds,1,ndata("ds"))} selects the complete data series. The selected x- and y-values are preserved. \\
+{\tt derivative(ds)} \index{derivative()} & A new data series containing a numerical estimate of $dy/dx$. The original x-values are preserved. Interior derivatives use a spacing-aware three-point estimate suitable for nonuniformly spaced x-values. One-sided differences are used at the ends of a valid run of data. Missing or invalid points separate the data into independent runs. \\
+{\tt integrate(ds)} \index{integrate()} & A new data series containing the cumulative integral of {\tt ds}. Integration is performed using the trapezoidal rule and the original x-values are preserved. The cumulative integral begins at zero and restarts at zero after a gap in the data. \\
+{\tt integral(ds,x1,x2)} \index{integral()} & The scalar definite integral of {\tt ds} from x-coordinate {\tt x1} to {\tt x2}. Integration uses the trapezoidal rule applied to the piecewise linear representation of the data. If an integration bound falls between two data points, the y-value at the bound is obtained by linear interpolation. Reversing the bounds reverses the sign of the result. The x-values must be finite and strictly increasing, and the integration interval must lie within the x-range of the data series. \\
+\hline \end{supertabular}
+
+
 \subsection{Logical Operators}
 
-\begin{tabular}{ll} \hline
-Operator & Meaning  \\ \hline
+\begin{supertabular}{lp{10cm}}
+\hline
+Operator & Meaning  \\
+ \hline
 {\tt =} \index{=}      & equals (same as assignment) \\
 {\tt \textless \textgreater} \index{\textless \textgreater}  & not equals (in GLE {\tt !} is the comment character)  \\
 {\tt \textless } \index{\textless} & less than\\
@@ -132,9 +180,9 @@ Operator & Meaning  \\ \hline
 {\tt and} \index{and}     & logical and between two expressions e.g. {\tt ( x \textless\ 1) and  (x \textgreater\ 10) }\\
 {\tt or} \index{or}     & logical or between two expressions\\
 {\tt not(exp)} \index{not()}   & logical not of {\tt exp} \\
-\end{tabular}
+\end{supertabular}
 
-\subsection{Mathematical  Operators, Constants, and Functions}
+\subsection{Mathematical Operators}
 
 GLE provides the following mathematical operators, functions, and constants.  All angles are in radians. The constant values have 16 digits of precision within GLE.  The special functions are from the boost C++ libraries or the C++ standard math libraries.  The physical constants are based on CODATA values and are in SI units and generated from scipy.constants.  The mathematical constants are from the boost::math C++ library.
 
@@ -158,6 +206,8 @@ Operator & Meaning  \\ \hline
 \end{tabular}
 
 \vspace{2ex}
+
+\subsection{Mathematical Constants}
 
 \input{appendix/constants.tex}
 
@@ -209,7 +259,9 @@ The CODATA data are incorporated into GLE when the source code is generated. GLE
 
 \vspace{2ex}
 
-\begin{supertabular}{ll}
+\subsection{Mathematical Functions}
+
+\begin{supertabular}{lp{10cm}}
 \hline Function & Returns \\
  \hline
   {\tt abs($x$)} \index{abs()} & absolute value of $x$ \\
@@ -290,13 +342,11 @@ The CODATA data are incorporated into GLE when the source code is generated. GLE
   {\tt spherical\_harmonic($n$,$m$,$\theta$,$\phi$)} \index{spherical\_harmonic()} & real valued spherical harmonic, $\theta$ polar angle $[0,\pi]$, $\phi$ azimuthal angle $[0,2\pi]$ \\
 \end{supertabular}
 
-
-
 \subsection{Graphing}
 
 Graph variables and function that provide information from preceding graph block
 
-\begin{supertabular}{ll} \hline
+\begin{supertabular}{lp{10cm}} \hline
 Function Name     & Returns  \\ \hline
 {\tt xgmin} \index{xgmin} & the minimum x-coordinate of the graph \\
 {\tt xgmax} \index{xgmax} & the maximum x-coordinate of the graph \\
